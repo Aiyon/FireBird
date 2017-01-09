@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProjectileMotion : MonoBehaviour {
 
-	int speed = 0;
+	float speed = 0;
 	int damage = 0;
 
     public GameObject sprite;
@@ -59,7 +59,7 @@ public class ProjectileMotion : MonoBehaviour {
         sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
     }
 
-    public void setShit(int dmg, int spd)
+    public void setShit(int dmg, float spd)
     {
         damage = dmg;
         speed = spd;

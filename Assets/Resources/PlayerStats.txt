@@ -7,6 +7,7 @@ RAccel 0.05
 CONSTRAINTS (I,I)
 MinRange 5
 MaxRange 30
+Start 10
 
 HEALTH (I)
 Max 15000

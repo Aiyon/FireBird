@@ -50,13 +50,13 @@ public class PlayerController : MonoBehaviour {
         OPTimer = 0;
 
         loadPlayerStats();
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
-	{
-		pRadius = gameObject.transform.localPosition;
-		bool strafe = false;
+    {
+        bool strafe = false;
 
 		//healthSlider.value = currentHealth * healthSlider.maxValue / maxHealth;
 
@@ -246,6 +246,8 @@ public class PlayerController : MonoBehaviour {
                 theReader.ReadLine();                       //CONSTRAINTS
                 minDist = int.Parse(theReader.ReadLine().Split(' ')[1]);  //MinRange 5
                 maxDist = int.Parse(theReader.ReadLine().Split(' ')[1]);  //MaxRange 30
+                pRadius = gameObject.transform.localPosition;
+                pRadius.z = -1 * int.Parse(theReader.ReadLine().Split(' ')[1]);//Start 10
                 theReader.ReadLine();
                 theReader.ReadLine();//HEALTH
                 maxHealth = int.Parse(theReader.ReadLine().Split(' ')[1]);//Max 15000

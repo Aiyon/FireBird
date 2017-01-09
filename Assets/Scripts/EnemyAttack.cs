@@ -16,7 +16,7 @@ public class EnemyAttack : MonoBehaviour {
 
     private List<string> patternList;
     private List<int> types = new List<int>();
-    private List<int> speeds = new List<int>();
+    private List<float> speeds = new List<float>();
     private List<int> damages = new List<int>();
 
     // Use this for initialization
@@ -141,7 +141,7 @@ public class EnemyAttack : MonoBehaviour {
                         string[] projParams = line.Split(',');
                         types.Add(int.Parse(projParams[0]));
                         damages.Add(int.Parse(projParams[1]));
-                        speeds.Add(int.Parse(projParams[2]));
+                        speeds.Add(float.Parse(projParams[2]));
 
                     }
                 }
