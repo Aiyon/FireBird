@@ -97,7 +97,7 @@ public class EnemyAttack : MonoBehaviour {
         {
             string line;
             string file = Application.dataPath;
-            file = file + "/Resources/Patterns.txt";
+            file = file + "/Resources" + Globals.getLevel() + "/Patterns.txt";
             StreamReader theReader = new StreamReader(file, Encoding.Default);
 
             using (theReader)
@@ -126,7 +126,7 @@ public class EnemyAttack : MonoBehaviour {
         {
             string line;
             string file = Application.dataPath;
-            file = file + "/Resources/Projectiles.txt";
+            file = file + "/Resources" + Globals.getLevel() + "/Projectiles.txt";
             StreamReader theReader = new StreamReader(file, Encoding.Default);
 
             using (theReader)
@@ -137,7 +137,6 @@ public class EnemyAttack : MonoBehaviour {
                     line = theReader.ReadLine();
                     if (line != null)
                     {
-                        Debug.Log(line);
                         string[] projParams = line.Split(',');
                         types.Add(int.Parse(projParams[0]));
                         damages.Add(int.Parse(projParams[1]));

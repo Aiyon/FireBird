@@ -40,8 +40,8 @@ public class PlayerController : MonoBehaviour {
     //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right
     public GameObject sprite;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
 		parent = gameObject.transform.parent.gameObject;
 		currentHealth = maxHealth;
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour {
         try
         {
             string file = Application.dataPath;
-            file = file + "/Resources/PlayerStats.txt";
+            file = file + "/Resources" + Globals.getLevel() + "/PlayerStats.txt";
             StreamReader theReader = new StreamReader(file, Encoding.Default);
 
             using (theReader)

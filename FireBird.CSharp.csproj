@@ -77,15 +77,17 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\Scripts\Globals.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileMotion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Resources\PWeapons.txt" />
-    <None Include="Assets\Resources\Patterns.txt" />
-    <None Include="Assets\Resources\PlayerStats.txt" />
-    <None Include="Assets\Resources\Projectiles.txt" />
+    <None Include="Assets\Resources\L1\PWeapons.txt" />
+    <None Include="Assets\Resources\L1\Patterns.txt" />
+    <None Include="Assets\Resources\L1\PlayerStats.txt" />
+    <None Include="Assets\Resources\L1\Projectiles.txt" />
+    <None Include="Assets\Resources\L1\sort.txt" />
     <None Include="Assets\sky5X\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

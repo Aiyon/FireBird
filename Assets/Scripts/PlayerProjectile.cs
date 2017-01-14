@@ -6,7 +6,8 @@ using System.Text;
 using System.Collections.Generic;
 using System.Collections;
 
-public class PlayerProjectile : MonoBehaviour {
+public class PlayerProjectile : MonoBehaviour
+{
 
     public int AP;
     public int heat;    //heat generation
@@ -24,10 +25,10 @@ public class PlayerProjectile : MonoBehaviour {
     string name;
     int soundEffect;
 
+    public string level; //LEVEL SETTER
+
     public GameObject flashLeft;
     public GameObject flashRight;
-
-    public GameObject player;
 
     public Text weaponText;
 
@@ -43,20 +44,42 @@ public class PlayerProjectile : MonoBehaviour {
 
     float damageCounter;
 
+    //weapon range wheel tests.
+    public Text gMinus3;
+    public Text rMinus3;
+    public Text gMinus2;
+    public Text rMinus2;
+    public Text gMinus1;
+    public Text rMinus1;
+    public Text g0;
+    public Text gPlus1;
+    public Text rPlus1;
+    public Text gPlus2;
+    public Text rPlus2;
+    public Text gPlus3;
+    public Text rPlus3;
+    float prevPos;
+    List<float> minRanges = new List<float>();
+    List<float> maxRanges = new List<float>();
+    List<string> names = new List<string>();
+    List<int> sortedMinRange = new List<int>(); //List index rather than value.
+    List<int> sortedMaxRange = new List<int>(); //List index rather than value.
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         numShots = clip;
         damageCounter = 0;
         m_Weapons = new List<string>();
         loadWeapons();
+        rangeSort();
         coolTime = new int[m_Weapons.Count];
         isCooling = new bool[m_Weapons.Count];
         equipped = -1;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (firing)
         {
@@ -91,7 +114,7 @@ public class PlayerProjectile : MonoBehaviour {
                 reload();
             }
         }
-        else if (!player.GetComponent<PlayerController>().getFiring())
+        else if (!gameObject.GetComponent<PlayerController>().getFiring())
         {
             if (Input.GetKeyDown(KeyCode.KeypadMultiply))
             {
@@ -138,11 +161,13 @@ public class PlayerProjectile : MonoBehaviour {
                 if (equipped != 10) equip(10); else fire();
             }
         }
-        for (int i = 0; i<coolTime.Length; i++)
+        for (int i = 0; i < coolTime.Length; i++)
         {
-            if(coolTime[i]>0) coolTime[i]--;
+            if (coolTime[i] > 0) coolTime[i]--;
             else isCooling[i] = false;
         }
+
+        if (gameObject.transform.localPosition.z != prevPos) rangeUpdate();
     }
 
     public void fire()
@@ -150,11 +175,11 @@ public class PlayerProjectile : MonoBehaviour {
         if (isCooling[equipped] == true) return;
         firing = true;
         fireTime = duration;
-        player.GetComponent<PlayerController>().setFiring(true);
+        gameObject.GetComponent<PlayerController>().setFiring(true);
         flashLeft.SetActive(true);
         flashRight.SetActive(true);
         Debug.Log(soundEffect);
-        gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect],1.0f);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect], 1.0f);
 
 
         int t = 0;
@@ -181,13 +206,13 @@ public class PlayerProjectile : MonoBehaviour {
         firing = false;
         flashLeft.SetActive(false);
         flashRight.SetActive(false);
-        player.GetComponent<PlayerController>().setFiring(false);
+        gameObject.GetComponent<PlayerController>().setFiring(false);
     }
 
     void reload()
     {
         ammo--;
-        if(ammo > 0)
+        if (ammo > 0)
         { /* reload */ }
         else
         { /* out of ammo */ }
@@ -212,12 +237,12 @@ public class PlayerProjectile : MonoBehaviour {
         capacity = int.Parse(stats[9]);
         soundEffect = int.Parse(stats[10]);
 
-        foreach(GameObject o in panelButtons)
+        foreach (GameObject o in panelButtons)
         {
             o.GetComponent<Image>().color = new Color(255, 255, 255, 100);
         }
         Color highlight = new Color();
-        switch(type.ToLower())
+        switch (type.ToLower())
         {
             case "explosive":
                 highlight = new Color(255, 0, 0, 0.4f);
@@ -264,7 +289,7 @@ public class PlayerProjectile : MonoBehaviour {
         {
             string line;
             string file = Application.dataPath;
-            file = file + "/Resources/PWeapons.txt";
+            file = file + "/Resources" + Globals.getLevel() + "/PWeapons.txt";
             StreamReader theReader = new StreamReader(file, Encoding.Default);
 
             using (theReader)
@@ -285,6 +310,136 @@ public class PlayerProjectile : MonoBehaviour {
         {
             Debug.Log(e.Message);
             return;
+        }
+    }
+
+    void rangeUpdate()
+    {
+
+        //go through sorted ranges to find 3 weapons either side.
+        float tempPos = gameObject.transform.localPosition.z * -1;
+
+        for (int i = 0; i < sortedMaxRange.Count; i++)
+        {
+
+            if (maxRanges[sortedMaxRange[i]] > tempPos)
+            {
+                rMinus1.text = "";
+                gMinus1.text = "";
+                rMinus2.text = "";
+                gMinus2.text = "";
+                rMinus3.text = "";
+                gMinus3.text = "";
+                int t = i;
+                t--;
+                if (sortedMaxRange[t] == equipped) t--;
+                if (t < 0) break;
+                rMinus1.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
+                gMinus1.text = names[sortedMaxRange[t]];
+                t--;
+                if (sortedMaxRange[t] == equipped) t--;
+                if (t < 0) break;
+                rMinus2.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
+                gMinus2.text = names[sortedMaxRange[t]];
+                t--;
+                if (sortedMaxRange[t] == equipped) t--;
+                if (t < 0) break;
+                rMinus3.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
+                gMinus3.text = names[sortedMaxRange[t]];
+
+                break;
+            }
+        }
+        for (int i = sortedMinRange.Count - 1; i >= 0; i--)
+        {
+            if (minRanges[sortedMinRange[i]] < tempPos)
+            {
+                rPlus1.text = "";
+                gPlus1.text = "";
+                rPlus2.text = "";
+                gPlus2.text = "";
+                rPlus3.text = "";
+                gPlus3.text = "";
+                int t = i;
+                t++; if (t >= minRanges.Count) break;
+                rPlus1.text = minRanges[sortedMinRange[t]] * 1000 + "m";
+                gPlus1.text = names[sortedMinRange[t]];
+                t++; if (t >= minRanges.Count) break;
+                rPlus2.text = minRanges[sortedMinRange[t]] * 1000 + "m";
+                gPlus2.text = names[sortedMinRange[t]];
+                t++; if (t >= minRanges.Count) break;
+                rPlus3.text = minRanges[sortedMinRange[t]] * 1000 + "m";
+                gPlus3.text = names[sortedMinRange[t]];
+                break;
+            }
+        }
+
+        if (maxRange < tempPos)
+        {
+            rMinus1.text = maxRange * 1000 + "m";
+            gMinus1.text = name;
+            g0.text = "";
+        }
+        else if (minRange > tempPos)
+        {
+            rPlus1.text = minRange * 1000 + "m";
+            gPlus1.text = name;
+            g0.text = "";
+        }
+        else
+        {
+            g0.text = name;
+        }
+        prevPos = tempPos;
+    }
+
+    void rangeSort()
+    {
+        List<float> tempMin = new List<float>();
+        List<float> tempMax = new List<float>();
+        List<float> tempMinSorted = new List<float>();
+        List<float> tempMaxSorted = new List<float>();
+
+        //set up sorted range lists
+        for (int i = 0; i < m_Weapons.Count; i++)
+        {
+            tempMin.Add(float.Parse(m_Weapons[i].Split(',')[3]));
+            tempMax.Add(float.Parse(m_Weapons[i].Split(',')[4]));
+            names.Add(m_Weapons[i].Split(',')[0]);
+
+            sortedMinRange.Add(0);
+            sortedMaxRange.Add(0);
+        }
+
+        minRanges = new List<float>(tempMin); tempMinSorted = new List<float>(tempMin);
+        tempMinSorted.Sort();
+        maxRanges = new List<float>(tempMax); tempMaxSorted = new List<float>(tempMax);
+        tempMaxSorted.Sort();
+
+        //for each in sorted, go through temp and find one that matches, put id into sMR index then set match as -1.
+        for (int i = 0; i < tempMaxSorted.Count; i++)
+        {
+            for (int j = 0; j < tempMax.Count; j++)
+            {
+                if (tempMaxSorted[i] == tempMax[j])
+                {
+                    sortedMaxRange[i] = j;
+                    tempMax[j] = -1;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < tempMinSorted.Count; i++)
+        {
+            for (int j = 0; j < tempMin.Count; j++)
+            {
+                if (tempMinSorted[i] == tempMin[j])
+                {
+                    sortedMinRange[i] = j;
+                    tempMin[j] = -1;
+                    break;
+                }
+            }
         }
     }
 }
