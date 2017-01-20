@@ -83,7 +83,6 @@ public class PlayerProjectile : MonoBehaviour
     {
         if (firing)
         {
-            Debug.Log(AP);
             if (type.ToLower() == "explosive")   //ballistic, energy
             {
                 //fire once for full AP
@@ -105,7 +104,6 @@ public class PlayerProjectile : MonoBehaviour
 
             if (fireTime <= 0)
             {
-                Debug.Log("bloop");
                 coolWeapon();
             }
 
@@ -173,6 +171,13 @@ public class PlayerProjectile : MonoBehaviour
     public void fire()
     {
         if (isCooling[equipped] == true) return;
+
+        float dist = gameObject.transform.localPosition.z * -1;
+        if (minRange > dist || maxRange < dist)
+        {
+            Debug.Log("no range");
+            return;
+        }
         firing = true;
         fireTime = duration;
         gameObject.GetComponent<PlayerController>().setFiring(true);
@@ -350,9 +355,9 @@ public class PlayerProjectile : MonoBehaviour
                 break;
             }
         }
-        for (int i = sortedMinRange.Count - 1; i >= 0; i--)
+        for (int i = 0; i < sortedMaxRange.Count; i++)
         {
-            if (minRanges[sortedMinRange[i]] < tempPos)
+            if (maxRanges[sortedMaxRange[i]] > tempPos)
             {
                 rPlus1.text = "";
                 gPlus1.text = "";
@@ -361,15 +366,22 @@ public class PlayerProjectile : MonoBehaviour
                 rPlus3.text = "";
                 gPlus3.text = "";
                 int t = i;
-                t++; if (t >= minRanges.Count) break;
-                rPlus1.text = minRanges[sortedMinRange[t]] * 1000 + "m";
-                gPlus1.text = names[sortedMinRange[t]];
-                t++; if (t >= minRanges.Count) break;
-                rPlus2.text = minRanges[sortedMinRange[t]] * 1000 + "m";
-                gPlus2.text = names[sortedMinRange[t]];
-                t++; if (t >= minRanges.Count) break;
-                rPlus3.text = minRanges[sortedMinRange[t]] * 1000 + "m";
-                gPlus3.text = names[sortedMinRange[t]];
+                if (sortedMaxRange[t] == equipped) t++;
+                if (t >= maxRanges.Count) break;
+                rPlus1.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
+                gPlus1.text = names[sortedMaxRange[t]];
+                t++;
+                if (t >= maxRanges.Count) break;
+                if (sortedMaxRange[t] == equipped) t++;
+                if (t >= maxRanges.Count) break;
+                rPlus2.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
+                gPlus2.text = names[sortedMaxRange[t]];
+                t++;
+                if (t >= maxRanges.Count) break;
+                if (sortedMaxRange[t] == equipped) t++;
+                if (t >= maxRanges.Count) break;
+                rPlus3.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
+                gPlus3.text = names[sortedMaxRange[t]];
                 break;
             }
         }
