@@ -5,6 +5,8 @@ public class ProjectileMotion : MonoBehaviour {
 
 	float speed = 0;
 	int damage = 0;
+    int alter;
+    public string type;
 
     public GameObject sprite;
     public Sprite[] facings;
@@ -14,7 +16,7 @@ public class ProjectileMotion : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-	
+        alter = 0;
 	}
 	
 	// Update is called once per frame
@@ -26,7 +28,7 @@ public class ProjectileMotion : MonoBehaviour {
         //		pos.z -= speed * Time.deltaTime;
         //		gameObject.transform.localPosition = pos;
 
-        float temp = Mathf.Abs(player.transform.GetChild(0).localPosition.z) + 5; if (temp > 32) temp = 32;
+        float temp = Mathf.Abs(player.transform.GetChild(0).localPosition.z) + 5; if (temp > 32) temp = 32; //hard cap on delete range
         if (Mathf.Abs(transform.localPosition.z) > temp) //> 32)
             Destroy (gameObject);
 
@@ -34,6 +36,33 @@ public class ProjectileMotion : MonoBehaviour {
         {
             Vector3 rot = player.transform.rotation.eulerAngles; rot.z *= -1;
             sprite.transform.rotation = Quaternion.Euler(rot);
+        }
+
+        if (type.ToLower() == "missile")
+        {
+            float pTemp = player.transform.GetChild(0).localPosition.magnitude;
+            //course correct
+            float projAbs = gameObject.transform.localPosition.magnitude;
+            if (alter == 0)
+            {
+
+                if (projAbs >= (pTemp * 0.33f))
+                {
+                    alter = 1;
+                }
+            }
+            else if (projAbs >= (pTemp * 0.6f))
+            {
+                Debug.Log(alter);
+                alter = 2;
+            }
+        }
+
+        if(alter == 1)
+        {
+            Vector3 pos = transform.position - player.transform.GetChild(0).position;
+            var newRot = Quaternion.LookRotation(pos);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRot, 0.1f);
         }
 
         float tempR = sprite.transform.localEulerAngles.y; tempR *= -1;

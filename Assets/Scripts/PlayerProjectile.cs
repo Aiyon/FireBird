@@ -184,7 +184,7 @@ public class PlayerProjectile : MonoBehaviour
         flashLeft.SetActive(true);
         flashRight.SetActive(true);
         Debug.Log(soundEffect);
-        gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect], 1.0f);
+        if(soundEffect != -1) gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect], 1.0f);
 
 
         int t = 0;
@@ -337,16 +337,19 @@ public class PlayerProjectile : MonoBehaviour
                 gMinus3.text = "";
                 int t = i;
                 t--;
+                if (t < 0) break;
                 if (sortedMaxRange[t] == equipped) t--;
                 if (t < 0) break;
                 rMinus1.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
                 gMinus1.text = names[sortedMaxRange[t]];
                 t--;
+                if (t < 0) break;
                 if (sortedMaxRange[t] == equipped) t--;
                 if (t < 0) break;
                 rMinus2.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
                 gMinus2.text = names[sortedMaxRange[t]];
                 t--;
+                if (t < 0) break;
                 if (sortedMaxRange[t] == equipped) t--;
                 if (t < 0) break;
                 rMinus3.text = maxRanges[sortedMaxRange[t]] * 1000 + "m";
