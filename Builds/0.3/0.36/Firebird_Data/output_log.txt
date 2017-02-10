@@ -1,0 +1,36 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 980 Ti (ID=0x17c8)
+    Vendor:   NVIDIA
+    VRAM:     6047 MB
+    Driver:   10.18.13.6881
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.016 seconds
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.3\0.36\Firebird_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1200 59Hz; virtual: 3840x1200 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.694699 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 2938 -> priority: 1 
+  Thread -> id: 1014 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.872312 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 726.
+Total: 0.355414 ms (FindLiveObjects: 0.044280 ms CreateObjectMapping: 0.018474 ms MarkObjects: 0.268320 ms  DeleteObjects: 0.023752 ms)
+

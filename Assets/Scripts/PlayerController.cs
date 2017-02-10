@@ -43,14 +43,12 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start ()
 	{
-		parent = gameObject.transform.parent.gameObject;
+        parent = gameObject.transform.parent.gameObject;
 		currentHealth = maxHealth;
 		rMomentum = 0;
         outpacingL = outpacingR = false;
         OPTimer = 0;
-
         loadPlayerStats();
-
     }
 	
 	// Update is called once per frame
@@ -232,7 +230,7 @@ public class PlayerController : MonoBehaviour {
         try
         {
             string file = Application.dataPath;
-            file = file + "/Resources" + Globals.getLevel() + "/PlayerStats.txt";
+            file = file + "/Resources/" + Globals.getLevel() + "/PlayerStats.txt";
             StreamReader theReader = new StreamReader(file, Encoding.Default);
 
             using (theReader)

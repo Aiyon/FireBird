@@ -52,6 +52,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -67,6 +70,9 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
     </Reference>
@@ -78,16 +84,28 @@
     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
+    <Compile Include="Assets\Scripts\LevelSelect.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileMotion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\L1\PWeapons.txt" />
-    <None Include="Assets\Resources\L1\Patterns.txt" />
+    <None Include="Assets\Resources\L1\Patterns\LPatterns.txt" />
+    <None Include="Assets\Resources\L1\Patterns\MPatterns.txt" />
+    <None Include="Assets\Resources\L1\Patterns\SPatterns.txt" />
+    <None Include="Assets\Resources\L1\Patterns\XLPatterns.txt" />
     <None Include="Assets\Resources\L1\PlayerStats.txt" />
     <None Include="Assets\Resources\L1\Projectiles.txt" />
     <None Include="Assets\Resources\L1\sort.txt" />
+    <None Include="Assets\Resources\L2\PWeapons.txt" />
+    <None Include="Assets\Resources\L2\Patterns\LPatterns.txt" />
+    <None Include="Assets\Resources\L2\Patterns\MPatterns.txt" />
+    <None Include="Assets\Resources\L2\Patterns\SPatterns.txt" />
+    <None Include="Assets\Resources\L2\Patterns\XLPatterns.txt" />
+    <None Include="Assets\Resources\L2\PlayerStats.txt" />
+    <None Include="Assets\Resources\L2\Projectiles.txt" />
+    <None Include="Assets\Resources\L2\sort.txt" />
     <None Include="Assets\sky5X\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

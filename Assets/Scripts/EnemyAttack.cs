@@ -14,7 +14,12 @@ public class EnemyAttack : MonoBehaviour {
 	float atkCounter;
     float atkDuration;
 
-    private List<string> patternList;
+    //pattern lists 
+    private List<string> patternListShort;
+    private List<string> patternListMedium;
+    private List<string> patternListLong;
+    private List<string> patternListXLong;
+
     private List<int> types = new List<int>();
     private List<float> speeds = new List<float>();
     private List<int> damages = new List<int>();
@@ -25,8 +30,22 @@ public class EnemyAttack : MonoBehaviour {
 		attacking = false;
 		atkCounter = 0;
 
-        patternList = new List<string>();
-        loadPatterns();
+        string file = Application.dataPath;
+        file = file + "/Resources" + Globals.getLevel() + "/Patterns";
+
+        //load pattern sets.
+        patternListShort = new List<string>();
+        loadPatterns(file + "/SPatterns.txt", patternListShort);
+
+        patternListMedium = new List<string>();
+        loadPatterns(file + "/MPatterns.txt", patternListMedium);
+
+        patternListLong = new List<string>();
+        loadPatterns(file + "/LPatterns.txt", patternListLong);
+
+        patternListXLong = new List<string>();
+        loadPatterns(file + "/XLPatterns.txt", patternListXLong);
+
         loadProjs();
 	}
 	
@@ -50,14 +69,30 @@ public class EnemyAttack : MonoBehaviour {
 		if(!attacking)
 		{
 			atkCounter = 0;
-			atkNum = UnityEngine.Random.Range(0,patternList.Count);
+			atkNum = UnityEngine.Random.Range(0,patternListShort.Count);
 			attacking = true;
 		}
 		else
 		{            
             if(atkCounter == 0)
             {
-                string[] pattern = patternList[atkNum].Split(',');
+                float pDist = Mathf.Abs(player.transform.localPosition.z);
+
+                string[] pattern;
+                if (pDist < 7.5f)
+                {
+                    pattern = patternListShort[atkNum].Split(',');
+                }
+                else if(pDist < 15)
+                {
+                    pattern = patternListMedium[atkNum].Split(',');
+                }
+                else if(pDist < 22.5f)
+                {
+                    pattern = patternListLong[atkNum].Split(',');
+                }
+                else pattern = patternListXLong[atkNum].Split(',');
+
                 int n = int.Parse(pattern[0]);
                 if(n == 2)
                 {
@@ -91,14 +126,12 @@ public class EnemyAttack : MonoBehaviour {
         proj.GetComponent<ProjectileMotion>().setShit(damages[p], speeds[p]);
     }
 
-    private void loadPatterns()
+    private void loadPatterns(string f, List<string> l)
     {
         try
         {
             string line;
-            string file = Application.dataPath;
-            file = file + "/Resources" + Globals.getLevel() + "/Patterns.txt";
-            StreamReader theReader = new StreamReader(file, Encoding.Default);
+            StreamReader theReader = new StreamReader(f, Encoding.Default);
 
             using (theReader)
             {
@@ -106,7 +139,7 @@ public class EnemyAttack : MonoBehaviour {
                 {
                     line = theReader.ReadLine();
                     if(line!= null)
-                        patternList.Add(line);
+                        l.Add(line);
                 }
                 while (line != null);
                 theReader.Close();

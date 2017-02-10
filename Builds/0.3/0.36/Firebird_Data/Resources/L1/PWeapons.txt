@@ -1,0 +1,12 @@
+//Name,Type,AP,minRange,maxRange,heat,Cooldown,reload,clip,capacity, AudioNumber
+Flamethrower,Explosive,750,0,6.5,9,40,120,7,14,0
+Railgun,Energy,750,17.5,25,5,60,180,5,10,5
+Gauss Cannon,Energy,750,12.5,16.5,5,50,150,5,10,1
+Sniper Rifle,Ballistic,500,12.5,17.5,5,50,150,9,18,-1
+Javelin,Explosive,1000,12.5,17,9,60,180,7,14,3
+Peace Maker,Ballistic,500,7.5,11.5,7,60,180,7,14,-1
+Assault Rifle,Ballistic,500,7.5,12,7,50,150,9,18,7
+Minigun,Ballistic,750,0,7.5,7,50,150,9,18,-1
+RPG,Explosive,1000,0,7,9,50,150,5,10,6
+Ion Cannon,Energy,750,7.5,12.5,9,40,120,7,14,2
+Laser Sword,Energy,1000,0,2.5,7,60,180,7,14,4

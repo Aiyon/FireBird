@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class Globals
 {
@@ -11,5 +12,10 @@ public static class Globals
     { return Level; }
     public static void setLevel(string s)
     { Level = s; }
+
+    //public static void levelSelect(int i)
+    //{
+    //    SceneManager.LoadScene(i);
+    //}
 
 }
