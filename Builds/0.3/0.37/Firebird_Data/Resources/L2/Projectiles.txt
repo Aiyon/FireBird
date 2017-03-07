@@ -1,0 +1,3 @@
+FORMAT: Type (0 = FBall, 1 = miss),Damage,Speed
+0,100,8
+1,120,8

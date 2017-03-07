@@ -259,4 +259,9 @@ public class PlayerController : MonoBehaviour {
             return;
         }
     }
+
+    public int getMD()
+    {
+        return maxDist;
+    }
 }

@@ -15,14 +15,21 @@ public class EnemyAttack : MonoBehaviour {
     float atkDuration;
 
     //pattern lists 
-    private List<string> patternListShort;
-    private List<string> patternListMedium;
-    private List<string> patternListLong;
-    private List<string> patternListXLong;
+    private List<Pattern> patternListShort;
+    private List<Pattern> patternListMedium;
+    private List<Pattern> patternListLong;
+    private List<Pattern> patternListXLong;
+
+    private Pattern currentAttack;
+    private int currentWave;
 
     private List<int> types = new List<int>();
     private List<float> speeds = new List<float>();
     private List<int> damages = new List<int>();
+
+    private float shortMax;
+    private float medMax;
+    private float largeMax;
 
     // Use this for initialization
     void Start ()
@@ -34,16 +41,16 @@ public class EnemyAttack : MonoBehaviour {
         file = file + "/Resources" + Globals.getLevel() + "/Patterns";
 
         //load pattern sets.
-        patternListShort = new List<string>();
+        patternListShort = new List<Pattern>();
         loadPatterns(file + "/SPatterns.txt", patternListShort);
 
-        patternListMedium = new List<string>();
+        patternListMedium = new List<Pattern>();
         loadPatterns(file + "/MPatterns.txt", patternListMedium);
 
-        patternListLong = new List<string>();
+        patternListLong = new List<Pattern>();
         loadPatterns(file + "/LPatterns.txt", patternListLong);
 
-        patternListXLong = new List<string>();
+        patternListXLong = new List<Pattern>();
         loadPatterns(file + "/XLPatterns.txt", patternListXLong);
 
         loadProjs();
@@ -69,48 +76,64 @@ public class EnemyAttack : MonoBehaviour {
 		if(!attacking)
 		{
 			atkCounter = 0;
-			atkNum = UnityEngine.Random.Range(0,patternListShort.Count);
-			attacking = true;
+            currentWave = 0;
+
+            float pDist = Mathf.Abs(player.transform.GetChild(0).localPosition.z);
+
+            if (pDist < shortMax)
+            {
+                atkNum = UnityEngine.Random.Range(0, patternListShort.Count);
+                currentAttack = patternListShort[atkNum];
+                Debug.Log("confirm1: " + atkNum);
+            }
+            else if (pDist < medMax)
+            {
+                atkNum = UnityEngine.Random.Range(0, patternListMedium.Count);
+                currentAttack = patternListMedium[atkNum];
+                Debug.Log("confirm2: " + atkNum);
+            }
+            else if (pDist < largeMax)
+            {
+                atkNum = UnityEngine.Random.Range(0, patternListLong.Count);
+                currentAttack = patternListLong[atkNum];
+            }
+            else
+            {
+                atkNum = UnityEngine.Random.Range(0, patternListXLong.Count);
+                currentAttack = patternListXLong[atkNum];
+            }
+            attacking = true;
 		}
 		else
 		{            
             if(atkCounter == 0)
             {
-                float pDist = Mathf.Abs(player.transform.localPosition.z);
+                Debug.Log(currentWave + " / " + currentAttack.numWaves());
+                string[] w = currentAttack.getWaves(currentWave).Split(',');
+                Debug.Log(currentAttack.getWaves(currentWave));
 
-                string[] pattern;
-                if (pDist < 7.5f)
-                {
-                    pattern = patternListShort[atkNum].Split(',');
-                }
-                else if(pDist < 15)
-                {
-                    pattern = patternListMedium[atkNum].Split(',');
-                }
-                else if(pDist < 22.5f)
-                {
-                    pattern = patternListLong[atkNum].Split(',');
-                }
-                else pattern = patternListXLong[atkNum].Split(',');
-
-                int n = int.Parse(pattern[0]);
+                int n = currentAttack.getType();
                 if(n == 2)
                 {
                     //do bullet things.
                 }
-                atkDuration = float.Parse(pattern[1]);
-                for (int i = 2; i<pattern.Length; i++)
+                for (int i = 0; i<w.Length; i++)
                 {
-                    newProjectile(n, float.Parse(pattern[i]));
+                    newProjectile(n, float.Parse(w[i]));
                 }
 
-                atkCounter += Time.deltaTime;
+                if (currentWave >= currentAttack.numWaves() - 1) atkCounter = currentAttack.getInterval();
+                else atkCounter = currentAttack.getSpeed();
             }
             else
             {
-                atkCounter += Time.deltaTime;
-                if (atkCounter >= atkDuration)
-                    attacking = false;
+                atkCounter -= Time.deltaTime;
+                if (atkCounter <= 0)
+                {
+                    atkCounter = 0;
+                    currentWave++;
+                    if (currentWave >= currentAttack.numWaves()) attacking = false;
+                }
             }
 		}
 
@@ -120,13 +143,13 @@ public class EnemyAttack : MonoBehaviour {
 	{
 		Vector3 vProj = gameObject.transform.position;
 		vProj.y = 0.5f;
-		Quaternion rotProj = gameObject.transform.rotation * Quaternion.AngleAxis (angle, transform.up);
+		Quaternion rotProj = gameObject.transform.rotation * Quaternion.AngleAxis (-angle, transform.up);
         GameObject proj = (GameObject)Instantiate(projectile[types[p]], vProj, rotProj);
         proj.GetComponent<ProjectileMotion>().setPlayer(player);
         proj.GetComponent<ProjectileMotion>().setShit(damages[p], speeds[p]);
     }
 
-    private void loadPatterns(string f, List<string> l)
+    private void loadPatterns(string f, List<Pattern> l)
     {
         try
         {
@@ -135,13 +158,31 @@ public class EnemyAttack : MonoBehaviour {
 
             using (theReader)
             {
-                do
+                line = theReader.ReadLine();
+                while (line != null)
                 {
+                    if (line.ToLower().StartsWith("pattern"))
+                    {
+                        line = theReader.ReadLine();
+                        string[] temp = line.Split(',');
+                        Pattern p = new Pattern(int.Parse(temp[0]), float.Parse(temp[1]), float.Parse(temp[2]));
+                        while (true)
+                        {
+                            line = theReader.ReadLine();
+                            if (line.StartsWith("%P"))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                p.newWave(line);
+                            }
+                        }
+
+                        l.Add(p);
+                    }
                     line = theReader.ReadLine();
-                    if(line!= null)
-                        l.Add(line);
                 }
-                while (line != null);
                 theReader.Close();
                 return;
             }
@@ -164,6 +205,15 @@ public class EnemyAttack : MonoBehaviour {
 
             using (theReader)
             {
+
+                theReader.ReadLine();
+                string[] dists = theReader.ReadLine().Split(',');
+
+                shortMax = float.Parse(dists[0]);
+                medMax = float.Parse(dists[1]);
+                largeMax = float.Parse(dists[2]);
+
+                theReader.ReadLine();
                 theReader.ReadLine(); //skip format string.
                 do
                 {

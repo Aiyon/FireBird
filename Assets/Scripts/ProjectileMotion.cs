@@ -28,7 +28,8 @@ public class ProjectileMotion : MonoBehaviour {
         //		pos.z -= speed * Time.deltaTime;
         //		gameObject.transform.localPosition = pos;
 
-        float temp = Mathf.Abs(player.transform.GetChild(0).localPosition.z) + 5; if (temp > 32) temp = 32; //hard cap on delete range
+        int iT = player.transform.GetChild(0).gameObject.GetComponent<PlayerController>().getMD();
+        float temp = Mathf.Abs(player.transform.GetChild(0).localPosition.z) + 5; if (temp > iT) temp = iT; //hard cap on delete range
         if (Mathf.Abs(transform.localPosition.z) > temp) //> 32)
             Destroy (gameObject);
 
