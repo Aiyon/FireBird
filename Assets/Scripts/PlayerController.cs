@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	private GameObject parent;
 	public GameObject Enemy;
 
-	public int rotSpeed;
+    public int rotSpeed;
 	private float rMomentum;
     private float rAccel;
 	public float radialSpeed;

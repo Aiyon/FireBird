@@ -25,6 +25,10 @@ public class PlayerProjectile : MonoBehaviour
     string name;
     int soundEffect;
 
+    //range rings
+    public GameObject inRange;
+    public GameObject tooClose;
+
     public string level; //LEVEL SETTER
 
     public GameObject flashLeft;
@@ -76,6 +80,9 @@ public class PlayerProjectile : MonoBehaviour
         coolTime = new int[m_Weapons.Count];
         isCooling = new bool[m_Weapons.Count];
         equipped = -1;
+        
+        inRange.transform.localScale = Vector3.zero;
+        tooClose.transform.localScale = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -267,6 +274,9 @@ public class PlayerProjectile : MonoBehaviour
         }
         panelButtons[equipped].GetComponent<Image>().color = highlight;
         //get stats of equipped weapon (AP, heat, etc)
+
+        inRange.transform.localScale = new Vector3(maxRange*0.4f,maxRange*0.4f,1.0f);
+        tooClose.transform.localScale = new Vector3(minRange*0.4f, minRange*0.4f, 1.0f);
     }
 
     public bool getFiring()
