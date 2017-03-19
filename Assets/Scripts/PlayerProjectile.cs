@@ -10,7 +10,7 @@ public class PlayerProjectile : MonoBehaviour
 {
 
     public int AP;
-    public int heat;    //heat generation
+    public float heat;    //heat generation
     public float minRange;
     public float maxRange;
     public int cooldown;
@@ -28,6 +28,10 @@ public class PlayerProjectile : MonoBehaviour
     //range rings
     public GameObject inRange;
     public GameObject tooClose;
+
+    //heat
+    public Slider heatSlider;
+    bool overheated;
 
     public string level; //LEVEL SETTER
 
@@ -80,9 +84,12 @@ public class PlayerProjectile : MonoBehaviour
         coolTime = new int[m_Weapons.Count];
         isCooling = new bool[m_Weapons.Count];
         equipped = -1;
-        
+
         inRange.transform.localScale = Vector3.zero;
         tooClose.transform.localScale = Vector3.zero;
+
+        overheated = false;
+        heatSlider.value = 0;
     }
 
     // Update is called once per frame
@@ -95,12 +102,14 @@ public class PlayerProjectile : MonoBehaviour
                 //fire once for full AP
                 hitEnemy(AP);
                 fireTime = 0;
+                heatSlider.value += heat;
             }
             else
             {
                 //fire for (AP/duration)*time.delta time, for duration.
                 damageCounter += (AP / duration) * Time.deltaTime;
                 fireTime -= Time.deltaTime;
+                heatSlider.value += heat * Time.deltaTime;
 
                 if ((damageCounter - damageCounter % 1) > 0)
                 {
@@ -108,6 +117,8 @@ public class PlayerProjectile : MonoBehaviour
                     damageCounter = damageCounter % 1;
                 }//If damage counter has exceeded at least one damage, deal damage rounded down to nearest int, then subtract said int from damage counter.
             }
+
+            if (heatSlider.value >= 100) overheated = true;
 
             if (fireTime <= 0)
             {
@@ -172,11 +183,22 @@ public class PlayerProjectile : MonoBehaviour
             else isCooling[i] = false;
         }
 
+        heatSlider.value -= Time.deltaTime;
+        if (overheated)
+        {
+            if (heatSlider.value < 70) overheated = false;
+            else heatSlider.value -= Time.deltaTime;
+        }
         if (gameObject.transform.localPosition.z != prevPos) rangeUpdate();
     }
 
     public void fire()
     {
+        if (overheated)
+        {
+            return;
+        }
+
         if (isCooling[equipped] == true) return;
 
         float dist = gameObject.transform.localPosition.z * -1;
@@ -242,7 +264,7 @@ public class PlayerProjectile : MonoBehaviour
         AP = int.Parse(stats[2]);
         minRange = float.Parse(stats[3]);
         maxRange = float.Parse(stats[4]);
-        heat = int.Parse(stats[5]);
+        heat = float.Parse(stats[5]);
         cooldown = int.Parse(stats[6]);
         reloadTime = int.Parse(stats[7]);
         clip = int.Parse(stats[8]);
