@@ -84,13 +84,11 @@ public class EnemyAttack : MonoBehaviour {
             {
                 atkNum = UnityEngine.Random.Range(0, patternListShort.Count);
                 currentAttack = patternListShort[atkNum];
-                Debug.Log("confirm1: " + atkNum);
             }
             else if (pDist < medMax)
             {
                 atkNum = UnityEngine.Random.Range(0, patternListMedium.Count);
                 currentAttack = patternListMedium[atkNum];
-                Debug.Log("confirm2: " + atkNum);
             }
             else if (pDist < largeMax)
             {
@@ -108,9 +106,9 @@ public class EnemyAttack : MonoBehaviour {
 		{            
             if(atkCounter == 0)
             {
-                Debug.Log(currentWave + " / " + currentAttack.numWaves());
+//                Debug.Log(currentWave + " / " + currentAttack.numWaves());
                 string[] w = currentAttack.getWaves(currentWave).Split(',');
-                Debug.Log(currentAttack.getWaves(currentWave));
+//                Debug.Log(currentAttack.getWaves(currentWave));
 
                 int n = currentAttack.getType();
                 if(n == 2)

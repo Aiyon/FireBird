@@ -14,11 +14,12 @@ public class PlayerProjectile : MonoBehaviour
     public float minRange;
     public float maxRange;
     public int cooldown;
-    int numShots;
+
     public int clip;    //shots per clip
     public int capacity;    //number of clips
-    int ammo;               //clips remaining
-    public int reloadTime;
+    int[] ammo;               //ammo remaining in each weapon's clip
+
+    public int reload;
     public int duration;    //how long it fires for, essentially shots per clip.
     float fireTime;
     public string type; //weapon type
@@ -46,6 +47,10 @@ public class PlayerProjectile : MonoBehaviour
     bool firing;
     bool[] isCooling;
     int[] coolTime;
+
+    bool[] isReloading;
+    int[] reloadTime;
+
     int equipped; //which weapon is equipped
 
     List<string> m_Weapons;
@@ -76,13 +81,16 @@ public class PlayerProjectile : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        numShots = clip;
         damageCounter = 0;
         m_Weapons = new List<string>();
         loadWeapons();
         rangeSort();
         coolTime = new int[m_Weapons.Count];
         isCooling = new bool[m_Weapons.Count];
+
+        reloadTime = new int[m_Weapons.Count];
+        isReloading = new bool[m_Weapons.Count];
+
         equipped = -1;
 
         inRange.transform.localScale = Vector3.zero;
@@ -90,6 +98,9 @@ public class PlayerProjectile : MonoBehaviour
 
         overheated = false;
         heatSlider.value = 0;
+        ammo = new int[m_Weapons.Count];
+        for(int i = 0; i < ammo.Length; i++)
+        { ammo[i] = -1; }
     }
 
     // Update is called once per frame
@@ -122,12 +133,16 @@ public class PlayerProjectile : MonoBehaviour
 
             if (fireTime <= 0)
             {
-                coolWeapon();
-            }
-
-            if (--numShots == 0)
-            {
-                reload();
+                ammo[equipped]--;
+                Debug.Log("Ammo: " + ammo[equipped]);
+                if (ammo[equipped] == 0)
+                {
+                    m_fReload();//reload
+                }
+                else
+                {
+                    coolWeapon();
+                }
             }
         }
         else if (!gameObject.GetComponent<PlayerController>().getFiring())
@@ -177,10 +192,19 @@ public class PlayerProjectile : MonoBehaviour
                 if (equipped != 10) equip(10); else fire();
             }
         }
+
         for (int i = 0; i < coolTime.Length; i++)
         {
-            if (coolTime[i] > 0) coolTime[i]--;
+            if(isCooling[i] && coolTime[i] > 0) coolTime[i]--;
             else isCooling[i] = false;
+        }
+        for (int i = 0; i < reloadTime.Length; i++)
+        {
+            if (isReloading[i] && reloadTime[i] > 0) reloadTime[i]--;
+            else
+            {
+                isReloading[i] = false;
+            }
         }
 
         heatSlider.value -= Time.deltaTime;
@@ -199,7 +223,16 @@ public class PlayerProjectile : MonoBehaviour
             return;
         }
 
-        if (isCooling[equipped] == true) return;
+        if (isCooling[equipped] == true)
+        {
+            Debug.Log("Cooling.");
+            return;
+        }
+        if (isReloading[equipped] == true)
+        {
+            Debug.Log("Reloading.");
+            return;
+        }
 
         float dist = gameObject.transform.localPosition.z * -1;
         if (minRange > dist || maxRange < dist)
@@ -243,11 +276,16 @@ public class PlayerProjectile : MonoBehaviour
         gameObject.GetComponent<PlayerController>().setFiring(false);
     }
 
-    void reload()
+    void m_fReload()
     {
-        ammo--;
-        if (ammo > 0)
-        { /* reload */ }
+        capacity--;
+        if (capacity > 0)
+        {
+            isReloading[equipped] = true;
+            reloadTime[equipped] = reload;
+            ammo[equipped] = clip;
+            /* reload */
+        }
         else
         { /* out of ammo */ }
     }
@@ -265,9 +303,11 @@ public class PlayerProjectile : MonoBehaviour
         minRange = float.Parse(stats[3]);
         maxRange = float.Parse(stats[4]);
         heat = float.Parse(stats[5]);
-        cooldown = int.Parse(stats[6]);
-        reloadTime = int.Parse(stats[7]);
+        cooldown = int.Parse(stats[6]) * 60; //file = secs, not frames
+        reload = int.Parse(stats[7]) *60;   //as above
         clip = int.Parse(stats[8]);
+        if (ammo[equipped] == -1)
+            ammo[equipped] = clip;
         capacity = int.Parse(stats[9]);
         soundEffect = int.Parse(stats[10]);
 
@@ -306,7 +346,7 @@ public class PlayerProjectile : MonoBehaviour
 
     public bool outofAmmo()
     {
-        return (ammo == 0);
+        return (clip == 0);
     }
 
     public bool cooling()
@@ -317,7 +357,7 @@ public class PlayerProjectile : MonoBehaviour
     void hitEnemy(int damage)
     {
         gameObject.GetComponent<PlayerController>().Enemy.GetComponent<EnemyHealth>().playerProjHit(damage, type);
-        Debug.Log("firing " + type + " for " + AP + " damage.");
+        //Debug.Log("firing " + type + " for " + AP + " damage.");
     }
 
     private void loadWeapons()
