@@ -59,21 +59,22 @@ public class EnemyAttack : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		//if(Input.GetKeyDown(KeyCode.F))
-		//{
-		//	Vector3 vProj = gameObject.transform.position;
-		//	vProj.y = 0.5f;
-		//	Instantiate(projectile[0], vProj, gameObject.transform.rotation);
-		//}
-		//if(Input.GetKeyDown(KeyCode.G))
-		//{
-		//	Vector3 vProj = gameObject.transform.position;
-		//	vProj.y = 0.5f;
-  //          Instantiate(projectile[1], vProj, gameObject.transform.rotation);
-            
-		//}
+        if (Globals.paused) return;
+        //if(Input.GetKeyDown(KeyCode.F))
+        //{
+        //	Vector3 vProj = gameObject.transform.position;
+        //	vProj.y = 0.5f;
+        //	Instantiate(projectile[0], vProj, gameObject.transform.rotation);
+        //}
+        //if(Input.GetKeyDown(KeyCode.G))
+        //{
+        //	Vector3 vProj = gameObject.transform.position;
+        //	vProj.y = 0.5f;
+        //          Instantiate(projectile[1], vProj, gameObject.transform.rotation);
 
-		if(!attacking)
+        //}
+
+        if (!attacking)
 		{
 			atkCounter = 0;
             currentWave = 0;

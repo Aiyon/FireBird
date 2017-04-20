@@ -1,0 +1,154 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 980 Ti (ID=0x17c8)
+    Vendor:   NVIDIA
+    VRAM:     6048 MB
+    Driver:   10.18.10.3308
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.016 seconds
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.4\0.4.1\FireBird_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1200 59Hz; virtual: 3840x1200 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.733705 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1214 -> priority: 1 
+  Thread -> id: 306c -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.074676 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 746.
+Total: 0.393538 ms (FindLiveObjects: 0.051611 ms CreateObjectMapping: 0.019354 ms MarkObjects: 0.288262 ms  DeleteObjects: 0.034016 ms)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+10
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Cooling.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Ammo: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+no range
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.085602 ms
+
+Unloading 131 unused Assets to reduce memory usage. Loaded Objects now: 279.
+Total: 1.492044 ms (FindLiveObjects: 0.042814 ms CreateObjectMapping: 0.009383 ms MarkObjects: 0.131081 ms  DeleteObjects: 1.308764 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.224627 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 746.
+Total: 0.402922 ms (FindLiveObjects: 0.048092 ms CreateObjectMapping: 0.027858 ms MarkObjects: 0.274773 ms  DeleteObjects: 0.052198 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.858335 ms
+
+Unloading 131 unused Assets to reduce memory usage. Loaded Objects now: 279.
+Total: 1.870040 ms (FindLiveObjects: 0.043987 ms CreateObjectMapping: 0.023753 ms MarkObjects: 0.140172 ms  DeleteObjects: 1.661834 ms)
+

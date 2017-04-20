@@ -29,7 +29,11 @@ public class PlayerController : MonoBehaviour {
 
     public Text rangeText;
 
-    int equipped = 0;
+    bool[] DashCheck = new bool[4];
+    float dashTimer;
+    float dashCool;
+
+//    int equipped = 0;
     bool firing;
 
     bool outpacingL;    //can the enemy turn fast enough to keep up with the player?
@@ -40,20 +44,32 @@ public class PlayerController : MonoBehaviour {
     //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right
     public GameObject sprite;
 
+    public Button menu;
+
     // Use this for initialization
-    void Start ()
-	{
+    void Start()
+    {
         parent = gameObject.transform.parent.gameObject;
-		currentHealth = maxHealth;
-		rMomentum = 0;
+        currentHealth = maxHealth;
+        rMomentum = 0;
         outpacingL = outpacingR = false;
         OPTimer = 0;
         loadPlayerStats();
+
+        Globals.paused = false;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        menu.gameObject.SetActive(Globals.paused);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Globals.paused = !Globals.paused;
+        }
+        if (Globals.paused)return;
+
         bool strafe = false;
 
 		//healthSlider.value = currentHealth * healthSlider.maxValue / maxHealth;
@@ -108,6 +124,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			pRadius.z += zMomentum*Time.deltaTime;
 			pRadius.z = Mathf.Clamp (pRadius.z, -maxDist, -minDist);
+            if (zMomentum > tSpeed) zMomentum -= tSpeed / 10;
 		}
 		if(pRadius != gameObject.transform.localPosition)
 		{
@@ -142,6 +159,22 @@ public class PlayerController : MonoBehaviour {
                 }
 		}
 
+        //dashing (0-3 = WASD)
+        dashTimer -= Time.deltaTime;
+
+        if (dashCool > 0) dashCool -= Time.deltaTime;
+        else
+        {
+            if (DashChecker(KeyCode.W, 0))
+                zMomentum = tSpeed * 2f;
+            if (DashChecker(KeyCode.A, 1))
+                rMomentum = adjSpeed * 1.5f;
+            if (DashChecker(KeyCode.S, 2))
+                zMomentum = tSpeed * -2f;
+            if (DashChecker(KeyCode.D, 3))
+                rMomentum = adjSpeed * -1.5f;
+        }
+
         //set non-idle facings.
         if (rMomentum == 0)
             setFacing(0);
@@ -175,6 +208,27 @@ public class PlayerController : MonoBehaviour {
         rangeText.text = trueRange + "m";
 
 	}
+
+    bool DashChecker(KeyCode k, int i)
+    {
+        if (Input.GetKeyDown(k))
+        {
+            if (!DashCheck[i])
+            {
+                DashCheck[i] = true;
+                dashTimer = 0.25f;
+                return false;
+            }
+            else if (dashTimer > 0)
+            {
+                DashCheck[i] = false;
+                dashCool = 1;
+                return true;
+            }
+            else DashCheck[i] = false;
+        }
+        return false;
+    }
 
 	void OnCollisionEnter (Collision col)
 	{

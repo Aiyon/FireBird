@@ -18,12 +18,13 @@ public class PlayerProjectile : MonoBehaviour
     public int clip;    //shots per clip
     public int capacity;    //number of clips
     int[] ammo;               //ammo remaining in each weapon's clip
+    int[] capacities;
 
     public int reload;
     public int duration;    //how long it fires for, essentially shots per clip.
     float fireTime;
     public string type; //weapon type
-    string name;
+    string wName;
     int soundEffect;
 
     //range rings
@@ -47,6 +48,7 @@ public class PlayerProjectile : MonoBehaviour
     bool firing;
     bool[] isCooling;
     int[] coolTime;
+    bool[] inOperable;
 
     bool[] isReloading;
     int[] reloadTime;
@@ -90,8 +92,9 @@ public class PlayerProjectile : MonoBehaviour
 
         reloadTime = new int[m_Weapons.Count];
         isReloading = new bool[m_Weapons.Count];
+        inOperable = new bool[m_Weapons.Count];
 
-        equipped = -1;
+        equipped = 0;
 
         inRange.transform.localScale = Vector3.zero;
         tooClose.transform.localScale = Vector3.zero;
@@ -99,53 +102,18 @@ public class PlayerProjectile : MonoBehaviour
         overheated = false;
         heatSlider.value = 0;
         ammo = new int[m_Weapons.Count];
-        for(int i = 0; i < ammo.Length; i++)
-        { ammo[i] = -1; }
+        capacities = new int[m_Weapons.Count];
+        for (int i = 0; i < ammo.Length; i++)
+        {
+            ammo[i] = -1;
+            capacities[i] = -1;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (firing)
-        {
-            if (type.ToLower() == "explosive")   //ballistic, energy
-            {
-                //fire once for full AP
-                hitEnemy(AP);
-                fireTime = 0;
-                heatSlider.value += heat;
-            }
-            else
-            {
-                //fire for (AP/duration)*time.delta time, for duration.
-                damageCounter += (AP / duration) * Time.deltaTime;
-                fireTime -= Time.deltaTime;
-                heatSlider.value += heat * Time.deltaTime;
-
-                if ((damageCounter - damageCounter % 1) > 0)
-                {
-                    hitEnemy((int)(damageCounter - damageCounter % 1));
-                    damageCounter = damageCounter % 1;
-                }//If damage counter has exceeded at least one damage, deal damage rounded down to nearest int, then subtract said int from damage counter.
-            }
-
-            if (heatSlider.value >= 100) overheated = true;
-
-            if (fireTime <= 0)
-            {
-                ammo[equipped]--;
-                Debug.Log("Ammo: " + ammo[equipped]);
-                if (ammo[equipped] == 0)
-                {
-                    m_fReload();//reload
-                }
-                else
-                {
-                    coolWeapon();
-                }
-            }
-        }
-        else if (!gameObject.GetComponent<PlayerController>().getFiring())
+        if (!gameObject.GetComponent<PlayerController>().getFiring() && !firing)
         {
             if (Input.GetKeyDown(KeyCode.KeypadMultiply))
             {
@@ -193,18 +161,65 @@ public class PlayerProjectile : MonoBehaviour
             }
         }
 
+
+        if (Globals.paused) return;
+
+        if (firing)
+        {
+            if (type.ToLower() == "explosive")   //ballistic, energy
+            {
+                //fire once for full AP
+                hitEnemy(AP);
+                fireTime = 0;
+                heatSlider.value += heat;
+            }
+            else
+            {
+                //fire for (AP/duration)*time.delta time, for duration.
+                damageCounter += (AP / duration) * Time.deltaTime;
+                fireTime -= Time.deltaTime;
+                heatSlider.value += heat * Time.deltaTime;
+
+                if ((damageCounter - damageCounter % 1) > 0)
+                {
+                    hitEnemy((int)(damageCounter - damageCounter % 1));
+                    damageCounter = damageCounter % 1;
+                }//If damage counter has exceeded at least one damage, deal damage rounded down to nearest int, then subtract said int from damage counter.
+            }
+
+            if (heatSlider.value >= 100) overheated = true;
+
+            if (fireTime <= 0)
+            {
+                ammo[equipped]--;
+                Debug.Log("Ammo: " + ammo[equipped]);
+                if (ammo[equipped] == 0)
+                {
+                    m_fReload();//reload
+                }
+                else
+                {
+                    coolWeapon();
+                }
+            }
+        }
+
+        //COOLDOWN/RELOAD UI TIMERS
+        Color lightSetter;
         for (int i = 0; i < coolTime.Length; i++)
         {
-            if(isCooling[i] && coolTime[i] > 0) coolTime[i]--;
+            lightSetter = new Color(255, 255, 255, 1);
+            if (isCooling[i] && coolTime[i] > 0)
+            {
+                coolTime[i]--;
+            }
             else isCooling[i] = false;
-        }
-        for (int i = 0; i < reloadTime.Length; i++)
-        {
             if (isReloading[i] && reloadTime[i] > 0) reloadTime[i]--;
             else
             {
                 isReloading[i] = false;
             }
+
         }
 
         heatSlider.value -= Time.deltaTime;
@@ -218,10 +233,15 @@ public class PlayerProjectile : MonoBehaviour
 
     public void fire()
     {
+        if (Globals.paused)
+            return;
+
         if (overheated)
         {
             return;
         }
+        if (inOperable[equipped] == true)
+            return;
 
         if (isCooling[equipped] == true)
         {
@@ -278,8 +298,8 @@ public class PlayerProjectile : MonoBehaviour
 
     void m_fReload()
     {
-        capacity--;
-        if (capacity > 0)
+        capacities[equipped]--;
+        if (capacities[equipped] > 0)
         {
             isReloading[equipped] = true;
             reloadTime[equipped] = reload;
@@ -287,17 +307,21 @@ public class PlayerProjectile : MonoBehaviour
             /* reload */
         }
         else
-        { /* out of ammo */ }
+        {
+            inOperable[equipped] = true;
+            /* out of ammo */
+        }
     }
 
     public void equip(int weapon)
     {
+        panelButtons[equipped].GetComponent<Image>().color = new Color(255, 255, 255, 0.4f);
         equipped = weapon;
 
         string[] stats = m_Weapons[equipped].Split(',');
         //Name,Type,AP,heat,minRange,maxRange,Cooldown,reload,clip,capacity,AudioNumber
-        name = stats[0];
-        weaponText.text = name;
+        wName = stats[0];
+        weaponText.text = wName;
         type = stats[1];
         AP = int.Parse(stats[2]);
         minRange = float.Parse(stats[3]);
@@ -309,12 +333,9 @@ public class PlayerProjectile : MonoBehaviour
         if (ammo[equipped] == -1)
             ammo[equipped] = clip;
         capacity = int.Parse(stats[9]);
+        if (capacities[equipped] == -1)
+            capacities[equipped] = capacity;
         soundEffect = int.Parse(stats[10]);
-
-        foreach (GameObject o in panelButtons)
-        {
-            o.GetComponent<Image>().color = new Color(255, 255, 255, 100);
-        }
         Color highlight = new Color();
         switch (type.ToLower())
         {
@@ -464,18 +485,18 @@ public class PlayerProjectile : MonoBehaviour
         if (maxRange < tempPos)
         {
             rMinus1.text = maxRange * 1000 + "m";
-            gMinus1.text = name;
+            gMinus1.text = wName;
             g0.text = "";
         }
         else if (minRange > tempPos)
         {
             rPlus1.text = minRange * 1000 + "m";
-            gPlus1.text = name;
+            gPlus1.text = wName;
             g0.text = "";
         }
         else
         {
-            g0.text = name;
+            g0.text = wName;
         }
         prevPos = tempPos;
     }

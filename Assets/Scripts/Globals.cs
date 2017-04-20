@@ -18,4 +18,6 @@ public static class Globals
     //    SceneManager.LoadScene(i);
     //}
 
+    public static bool paused;
+
 }

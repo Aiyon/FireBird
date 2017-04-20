@@ -22,7 +22,9 @@ public class ProjectileMotion : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		transform.position -= transform.forward * speed * Time.deltaTime;
+        if (Globals.paused) return;
+
+        transform.position -= transform.forward * speed * Time.deltaTime;
 
         //		Vector3 pos = gameObject.transform.localPosition;
         //		pos.z -= speed * Time.deltaTime;

@@ -55,6 +55,8 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Globals.paused) return;
+
         sliderAA.value = def[0];
         sliderES.value = def[1];
         sliderAF.value = def[2];
