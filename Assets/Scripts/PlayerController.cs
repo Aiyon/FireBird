@@ -279,6 +279,15 @@ public class PlayerController : MonoBehaviour {
         sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
     }
 
+    public float getRMomentum()
+    {
+        return rMomentum;
+    }
+    public float getZMomentum()
+    {
+        return zMomentum;
+    }
+
     void loadPlayerStats()
     {
         try

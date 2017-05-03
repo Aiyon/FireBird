@@ -13,6 +13,7 @@ public class EnemyAttack : MonoBehaviour {
 	int atkNum;
 	float atkCounter;
     float atkDuration;
+    public bool chase;
 
     //pattern lists 
     private List<Pattern> patternListShort;
@@ -30,6 +31,9 @@ public class EnemyAttack : MonoBehaviour {
     private float shortMax;
     private float medMax;
     private float largeMax;
+
+    private int patternOffset;
+    private Quaternion rotProj;
 
     // Use this for initialization
     void Start ()
@@ -101,6 +105,7 @@ public class EnemyAttack : MonoBehaviour {
                 atkNum = UnityEngine.Random.Range(0, patternListXLong.Count);
                 currentAttack = patternListXLong[atkNum];
             }
+            setPatternRot();
             attacking = true;
 		}
 		else
@@ -137,13 +142,20 @@ public class EnemyAttack : MonoBehaviour {
 		}
 
 	}
-    
-	void newProjectile(int p, float angle)
+
+    void setPatternRot()
+    {
+        rotProj = gameObject.transform.rotation;
+        if(chase)
+            rotProj *= Quaternion.AngleAxis(player.GetComponentInChildren<PlayerController>().getRMomentum(), transform.up);
+    }
+
+    void newProjectile(int p, float angle)
 	{
 		Vector3 vProj = gameObject.transform.position;
 		vProj.y = 0.5f;
-		Quaternion rotProj = gameObject.transform.rotation * Quaternion.AngleAxis (-angle, transform.up);
-        GameObject proj = (GameObject)Instantiate(projectile[types[p]], vProj, rotProj);
+        Quaternion pRot = rotProj * Quaternion.AngleAxis(-angle, transform.up);
+        GameObject proj = (GameObject)Instantiate(projectile[types[p]], vProj, pRot);
         proj.GetComponent<ProjectileMotion>().setPlayer(player);
         proj.GetComponent<ProjectileMotion>().setShit(damages[p], speeds[p]);
     }
