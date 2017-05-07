@@ -283,9 +283,9 @@ public class PlayerController : MonoBehaviour {
     {
         return rMomentum;
     }
-    public float getZMomentum()
+    public float getRadius()
     {
-        return zMomentum;
+        return (pRadius.z*-1);
     }
 
     void loadPlayerStats()

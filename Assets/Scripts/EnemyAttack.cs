@@ -146,8 +146,15 @@ public class EnemyAttack : MonoBehaviour {
     void setPatternRot()
     {
         rotProj = gameObject.transform.rotation;
-        if(chase)
-            rotProj *= Quaternion.AngleAxis(player.GetComponentInChildren<PlayerController>().getRMomentum(), transform.up);
+        if (chase)
+        {
+            float lead = player.GetComponentInChildren<PlayerController>().getRMomentum();
+            lead *= player.GetComponentInChildren<PlayerController>().getRadius();
+            lead /= speeds[currentAttack.getType()];
+
+            Debug.Log(speeds[currentAttack.getType()]);
+            rotProj *= Quaternion.AngleAxis(lead, transform.up);
+        }
     }
 
     void newProjectile(int p, float angle)
