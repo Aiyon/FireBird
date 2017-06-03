@@ -31,7 +31,10 @@ public class PlayerController : MonoBehaviour {
 
     bool[] DashCheck = new bool[4];
     float dashTimer;
-    float dashCool;
+    float dashCool; //cooldown time on dash
+    bool dashing = false;
+    int dashID;
+    float dashDuration;
 
 //    int equipped = 0;
     bool firing;
@@ -39,6 +42,10 @@ public class PlayerController : MonoBehaviour {
     bool outpacingL;    //can the enemy turn fast enough to keep up with the player?
     bool outpacingR;
     float OPTimer;
+
+    //enemy tracking
+    List<float> pMomentum;
+    float checkInterval;
 
     public Sprite[] facings;
     //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right
@@ -55,86 +62,94 @@ public class PlayerController : MonoBehaviour {
         outpacingL = outpacingR = false;
         OPTimer = 0;
         loadPlayerStats();
+        dashDuration = 0;
+        dashID = -1;
+        checkInterval = 20;
+        pMomentum = new List<float>();
 
         Globals.paused = false;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         menu.gameObject.SetActive(Globals.paused);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Globals.paused = !Globals.paused;
         }
-        if (Globals.paused)return;
+        if (Globals.paused) return;
 
         bool strafe = false;
 
-		//healthSlider.value = currentHealth * healthSlider.maxValue / maxHealth;
+        //healthSlider.value = currentHealth * healthSlider.maxValue / maxHealth;
 
         healthText.text = currentHealth + " AP ";
-		//---
+        //---
 
-		adjSpeed = rotSpeed / pRadius.z; //adjusted for player distance
-		if (adjSpeed < 0) adjSpeed *= -1;
+        adjSpeed = rotSpeed / pRadius.z; //adjusted for player distance
+        if (adjSpeed < 0) adjSpeed *= -1;
 
-		if(!Input.GetKey(KeyCode.W)&&!Input.GetKey(KeyCode.S))
-		{
-			zMomentum = AccelerateTowards(zMomentum, 0, radialSpeed/30);
-		}
+        float tSpeed = 0;
 
-        if (!Input.GetKey(KeyCode.A)&& !Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
-            rMomentum = AccelerateTowards(rMomentum, 0, adjSpeed*rAccel*0.7f);
+            zMomentum = AccelerateTowards(zMomentum, 0, radialSpeed / 30);
         }
-        
-			//CHECK IF PLAYER IS MOVING IN Z BEFORE DOING POLAR MOVE
-			if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
-				adjSpeed /= Mathf.Sqrt (2);
 
-        //POLAR/ROTATION MOVE
-        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            rMomentum = AccelerateTowards(rMomentum, 0, adjSpeed * rAccel * 0.7f);
+        }
+        if (!dashing) //cant change direction while dashing.
+        {
+            //CHECK IF PLAYER IS MOVING IN Z BEFORE DOING POLAR MOVE
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+                adjSpeed /= Mathf.Sqrt(2);
+
+            //POLAR/ROTATION MOVE
+            if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            {
+                strafe = true;
+                rMomentum = AccelerateTowards(rMomentum, adjSpeed, adjSpeed * rAccel);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                rMomentum = AccelerateTowards(rMomentum, adjSpeed * -1, adjSpeed * rAccel);
+            }
+
+
+            //RADIUS MOVE
+            tSpeed = radialSpeed;
+            if (strafe) tSpeed /= Mathf.Sqrt(2);
+
+            if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            {
+                zMomentum = AccelerateTowards(zMomentum, tSpeed, tSpeed / 10);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                zMomentum = AccelerateTowards(zMomentum, tSpeed * -1, tSpeed / 10);
+            }
+        }
+
+        // MOMENTUM
+        if (zMomentum != 0)
+        {
+            pRadius.z += zMomentum * Time.deltaTime;
+            pRadius.z = Mathf.Clamp(pRadius.z, -maxDist, -minDist);
+            if (zMomentum > tSpeed) zMomentum -= tSpeed / 10;
+        }
+        if (pRadius != gameObject.transform.localPosition)
+        {
+            gameObject.transform.localPosition = pRadius;
+        }
+        if (rMomentum != 0)
         {
             strafe = true;
-            rMomentum = AccelerateTowards(rMomentum, adjSpeed, adjSpeed*rAccel);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rMomentum = AccelerateTowards(rMomentum, adjSpeed * -1, adjSpeed*rAccel);
-        }
-
-
-		//RADIUS MOVE
-		float tSpeed = radialSpeed;
-		if(strafe) tSpeed /= Mathf.Sqrt(2);
-
-        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            zMomentum = AccelerateTowards(zMomentum, tSpeed, tSpeed / 10);
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            zMomentum = AccelerateTowards(zMomentum, tSpeed * -1, tSpeed / 10);
-        }
-
-		// MOMENTUM
-		if (zMomentum != 0)
-		{
-			pRadius.z += zMomentum*Time.deltaTime;
-			pRadius.z = Mathf.Clamp (pRadius.z, -maxDist, -minDist);
-            if (zMomentum > tSpeed) zMomentum -= tSpeed / 10;
-		}
-		if(pRadius != gameObject.transform.localPosition)
-		{
-			gameObject.transform.localPosition = pRadius;
-		}
-		if(rMomentum != 0)
-		{
-			strafe = true;
-			parent.transform.Rotate(0,rMomentum*Time.deltaTime,0);
-			Enemy.transform.Rotate(0,rMomentum*Time.deltaTime,0);
+            parent.transform.Rotate(0, rMomentum * Time.deltaTime, 0);
+            Enemy.transform.Rotate(0, rMomentum * Time.deltaTime, 0);
 
             if (Mathf.Abs(rMomentum) >= adjSpeed * 0.9f)
             {
@@ -157,22 +172,55 @@ public class PlayerController : MonoBehaviour {
                     outpacingL = outpacingR = false;
                     Enemy.GetComponent<EnemyHealth>().spriteFacing(0);
                 }
-		}
+        }
 
         //dashing (0-3 = WASD)
         dashTimer -= Time.deltaTime;
+        dashDuration -= Time.deltaTime;
 
-        if (dashCool > 0) dashCool -= Time.deltaTime;
+        if (dashDuration > 0)
+        {
+            switch(dashID)
+            {
+                case 0:
+                    zMomentum = radialSpeed * 2f;
+                    break;
+                case 1:
+                    rMomentum = adjSpeed * 1.5f;
+                    break;
+                case 2:
+                    zMomentum = radialSpeed * -2f;
+                    break;
+                case 3:
+                    rMomentum = adjSpeed * -1.5f;
+                    break;
+                default:
+                    Debug.Log("didn't get an ID");
+                    break;
+            }
+        }
         else
         {
-            if (DashChecker(KeyCode.W, 0))
-                zMomentum = tSpeed * 2f;
-            if (DashChecker(KeyCode.A, 1))
-                rMomentum = adjSpeed * 1.5f;
-            if (DashChecker(KeyCode.S, 2))
-                zMomentum = tSpeed * -2f;
-            if (DashChecker(KeyCode.D, 3))
-                rMomentum = adjSpeed * -1.5f;
+            if (dashing)
+            {
+                dashCool = 1.0f;
+                dashing = false;
+            }
+            else
+            {
+                if (dashCool > 0) dashCool -= Time.deltaTime;
+                else
+                {
+                    if (DashChecker(KeyCode.W, 0))
+                        dashID = 0;
+                    if (DashChecker(KeyCode.A, 1))
+                        dashID = 1;
+                    if (DashChecker(KeyCode.S, 2))
+                        dashID = 2;
+                    if (DashChecker(KeyCode.D, 3))
+                        dashID = 3;
+                }
+            }
         }
 
         //set non-idle facings.
@@ -207,10 +255,22 @@ public class PlayerController : MonoBehaviour {
         int trueRange = (int)tFloat;
         rangeText.text = trueRange + "m";
 
-	}
+        if (!dashing)
+        {
+            checkInterval++;
+            if (checkInterval >= 20)
+            {
+                checkInterval = 0;
+                if (pMomentum.Count >= 30)
+                    pMomentum.RemoveAt(0);
+                pMomentum.Add(rMomentum);
+            }
+        }
+    }
 
     bool DashChecker(KeyCode k, int i)
     {
+
         if (Input.GetKeyDown(k))
         {
             if (!DashCheck[i])
@@ -222,10 +282,12 @@ public class PlayerController : MonoBehaviour {
             else if (dashTimer > 0)
             {
                 DashCheck[i] = false;
-                dashCool = 1;
+                dashing = true;
+                dashDuration = 1.0f;
                 return true;
             }
-            else DashCheck[i] = false;
+            else
+                DashCheck[i] = false;
         }
         return false;
     }
@@ -279,9 +341,16 @@ public class PlayerController : MonoBehaviour {
         sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
     }
 
-    public float getRMomentum()
+    public float getTrackingMomentum()
     {
-        return rMomentum;
+        float trackAmt = 0;
+        for(int i = 0; i < pMomentum.Count; i++)
+        {
+            trackAmt += pMomentum[i];
+        }
+        Debug.Log(trackAmt);
+        trackAmt /= pMomentum.Count;
+        return trackAmt;
     }
     public float getRadius()
     {

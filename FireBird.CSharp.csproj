@@ -83,6 +83,10 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileMotion.cs" />
+    <Compile Include="Assets\Splines\Bezier.cs" />
+    <Compile Include="Assets\Splines\BezierCurve.cs" />
+    <Compile Include="Assets\Splines\BezierSpline.cs" />
+    <Compile Include="Assets\Splines\Line.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\L1\PWeapons.txt" />
@@ -93,6 +97,7 @@
     <None Include="Assets\Resources\L1\PlayerStats.txt" />
     <None Include="Assets\Resources\L1\Projectiles.txt" />
     <None Include="Assets\Resources\L1\sort.txt" />
+    <None Include="Assets\Resources\L2\FormatStrings.txt" />
     <None Include="Assets\Resources\L2\PWeapons.txt" />
     <None Include="Assets\Resources\L2\Patterns\LPatterns.txt" />
     <None Include="Assets\Resources\L2\Patterns\MPatterns.txt" />

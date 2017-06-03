@@ -33,6 +33,7 @@ public class PlayerProjectile : MonoBehaviour
 
     //heat
     public Slider heatSlider;
+    public Image sliderbar;
     bool overheated;
 
     public string level; //LEVEL SETTER
@@ -48,10 +49,12 @@ public class PlayerProjectile : MonoBehaviour
     bool firing;
     bool[] isCooling;
     int[] coolTime;
+    int[] maxCoolTime;
     bool[] inOperable;
 
     bool[] isReloading;
     int[] reloadTime;
+    int[] maxReloadTime;
 
     int equipped; //which weapon is equipped
 
@@ -93,6 +96,15 @@ public class PlayerProjectile : MonoBehaviour
         reloadTime = new int[m_Weapons.Count];
         isReloading = new bool[m_Weapons.Count];
         inOperable = new bool[m_Weapons.Count];
+
+        maxCoolTime = new int[m_Weapons.Count];
+        maxReloadTime = new int[m_Weapons.Count];
+
+        for (int i = 0; i < m_Weapons.Count; i++)
+        {
+            maxCoolTime[i] = int.Parse(m_Weapons[i].Split(',')[6])*60; //cool
+            maxReloadTime[i] = int.Parse(m_Weapons[i].Split(',')[7])*60; //reload
+        }
 
         equipped = 0;
 
@@ -192,7 +204,7 @@ public class PlayerProjectile : MonoBehaviour
             if (fireTime <= 0)
             {
                 ammo[equipped]--;
-                Debug.Log("Ammo: " + ammo[equipped]);
+                //Debug.Log("Ammo: " + ammo[equipped]);
                 if (ammo[equipped] == 0)
                 {
                     m_fReload();//reload
@@ -204,22 +216,58 @@ public class PlayerProjectile : MonoBehaviour
             }
         }
 
+        //Heat slider colour update.
+        if (!overheated)
+        {
+            float colour = (153 - heatSlider.value)/255;
+            sliderbar.color = new Color(1, colour, 0, 1);
+        }
+        else
+            sliderbar.color = new Color(1, 0.21f, 0, 1);
+
         //COOLDOWN/RELOAD UI TIMERS
         Color lightSetter;
         for (int i = 0; i < coolTime.Length; i++)
         {
-            lightSetter = new Color(255, 255, 255, 1);
-            if (isCooling[i] && coolTime[i] > 0)
+            float angle = 0;
+            lightSetter = new Color(60, 60, 60, 0);
+            if (isCooling[i])
             {
-                coolTime[i]--;
+                if (coolTime[i] > 0)
+                {
+                    coolTime[i]--;
+                    lightSetter.a = 0.75f;
+                    float c1 = coolTime[i]; float c2 = maxCoolTime[i];
+                    angle = c1 / c2;
+                    //Debug.Log(c1 + ", " + c2 + ", " + angle);
+                    panelButtons[i].transform.GetChild(0).GetComponent<Image>().fillAmount = angle;
+                }
+                else
+                {
+                    lightSetter.a = 0.75f;
+                    float c1 = coolTime[i]; float c2 = maxCoolTime[i];
+                    angle = c1 / c2;
+                    isCooling[i] = false;
+                }
             }
-            else isCooling[i] = false;
-            if (isReloading[i] && reloadTime[i] > 0) reloadTime[i]--;
+            else if (isReloading[i] && reloadTime[i] > 0)
+            {
+                reloadTime[i]--;
+                lightSetter.a = 0.75f;
+                float r1 = reloadTime[i]; float r2 = maxReloadTime[i];
+                angle = r1/r2; 
+            }
             else
             {
+                lightSetter.a = 0.75f;
+                float r1 = reloadTime[i]; float r2 = maxReloadTime[i];
+                angle = r1 / r2;
                 isReloading[i] = false;
             }
 
+            panelButtons[i].transform.GetChild(0).GetComponent<Image>().color = lightSetter;
+            panelButtons[i].transform.GetChild(0).GetComponent<Image>().fillAmount = angle;
+            //maxCoolTime / maxReloadTime;
         }
 
         heatSlider.value -= Time.deltaTime;
@@ -265,7 +313,6 @@ public class PlayerProjectile : MonoBehaviour
         gameObject.GetComponent<PlayerController>().setFiring(true);
         flashLeft.SetActive(true);
         flashRight.SetActive(true);
-        Debug.Log(soundEffect);
         if(soundEffect != -1) gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect], 1.0f);
 
 
@@ -400,7 +447,8 @@ public class PlayerProjectile : MonoBehaviour
                         m_Weapons.Add(line);
                 }
                 while (line != null);
-                theReader.Close();
+                theReader.Close();                
+
                 return;
             }
         }
@@ -409,6 +457,7 @@ public class PlayerProjectile : MonoBehaviour
             Debug.Log(e.Message);
             return;
         }
+
     }
 
     void rangeUpdate()

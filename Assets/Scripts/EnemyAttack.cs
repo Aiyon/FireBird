@@ -148,7 +148,7 @@ public class EnemyAttack : MonoBehaviour {
         rotProj = gameObject.transform.rotation;
         if (chase)
         {
-            float lead = player.GetComponentInChildren<PlayerController>().getRMomentum();
+            float lead = player.GetComponentInChildren<PlayerController>().getTrackingMomentum();
             lead *= player.GetComponentInChildren<PlayerController>().getRadius();
             lead /= speeds[currentAttack.getType()];
 
