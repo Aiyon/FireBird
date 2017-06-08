@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour {
     float checkInterval;
 
     public Sprite[] facings;
+    public RuntimeAnimatorController [] anims;
     //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right
     public GameObject sprite;
 
@@ -78,6 +79,11 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Globals.paused = !Globals.paused;
+            GameObject[] objs = GameObject.FindGameObjectsWithTag("projectile");
+            foreach(GameObject g in objs)
+            {
+                g.transform.GetChild(0).gameObject.SetActive(!Globals.paused);
+            }
         }
         if (Globals.paused) return;
 
@@ -225,8 +231,12 @@ public class PlayerController : MonoBehaviour {
 
         //set non-idle facings.
         if (rMomentum == 0)
-            setFacing(0);
-        else if(rMomentum > 0)  //clockwise aka left.
+        {
+            if (zMomentum <= 0)
+                setFacing(0);
+            else setFacing(7);
+        }
+        else if (rMomentum > 0)  //clockwise aka left.
         {
             if (zMomentum == 0)
                 setFacing(1);
@@ -339,6 +349,7 @@ public class PlayerController : MonoBehaviour {
     void setFacing(int i)
     {
         sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
+        sprite.GetComponent<Animator>().runtimeAnimatorController = anims[i];
     }
 
     public float getTrackingMomentum()
