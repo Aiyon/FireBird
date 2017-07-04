@@ -49,8 +49,10 @@ public class PlayerController : MonoBehaviour {
 
     public Sprite[] facings;
     public RuntimeAnimatorController [] anims;
-    //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right
+    //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right, 7 = forward, 8 = idle
     public GameObject sprite;
+
+    public RuntimeAnimatorController[] shootAnims;
 
     public Button menu;
 
@@ -309,6 +311,10 @@ public class PlayerController : MonoBehaviour {
 			float dmg = col.gameObject.GetComponent<ProjectileMotion>().getDamage();
 			currentHealth -= dmg;
 			Destroy (col.gameObject);
+            if(dashing)
+            {
+                dashDuration = 0;
+            }
 
             zMomentum = Mathf.Clamp(zMomentum - dmg / 50, 0, radialSpeed); 	//knockback - can only slow player's forward movement, can't push them backwards.
         }
@@ -352,17 +358,24 @@ public class PlayerController : MonoBehaviour {
         sprite.GetComponent<Animator>().runtimeAnimatorController = anims[i];
     }
 
-    public float getTrackingMomentum()
+    public float getTrackingMomentum(float pSpeed)
     {
+
         float trackAmt = 0;
-        for(int i = 0; i < pMomentum.Count; i++)
+        pSpeed = pRadius.z/pSpeed;
+        int start = pMomentum.Count - (int)(pSpeed * 3);
+        if (start <= 0) start = 0;
+        start = pMomentum.Count - 3;
+        for (int i = start; i < pMomentum.Count; i++)
         {
+            Debug.Log("blarg");
             trackAmt += pMomentum[i];
         }
-        Debug.Log(trackAmt);
-        trackAmt /= pMomentum.Count;
+        //Debug.Log(trackAmt);
+        trackAmt /= (pMomentum.Count-start);
         return trackAmt;
     }
+
     public float getRadius()
     {
         return (pRadius.z*-1);

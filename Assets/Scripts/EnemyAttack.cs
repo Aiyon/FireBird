@@ -7,7 +7,16 @@ using System.Text;
 public class EnemyAttack : MonoBehaviour {
 
 	public GameObject[] projectile;
-    
+    public GameObject bullet;
+    private Vector3 b_velocity;
+    private Vector3 b_force;
+    bool bulletFront;
+    bool bulletRight;
+    bool bulleting;
+    int bulletID;
+    float bulletCD;
+    float bulletDuration;
+
     public GameObject player;
 	bool attacking;
 	int atkNum;
@@ -58,6 +67,13 @@ public class EnemyAttack : MonoBehaviour {
         loadPatterns(file + "/XLPatterns.txt", patternListXLong);
 
         loadProjs();
+
+        bulletFront = false;
+        bulletRight = false;
+        bulleting = false;
+        bulletID = 0;
+        bulletCD = 10;
+        bulletDuration = 10.0f;
 	}
 	
 	// Update is called once per frame
@@ -77,6 +93,50 @@ public class EnemyAttack : MonoBehaviour {
         //          Instantiate(projectile[1], vProj, gameObject.transform.rotation);
 
         //}
+
+        if(bulletCD > 0)
+        {
+            bulletCD -= Time.deltaTime;
+        }
+        else
+        {
+            if (!bulleting)
+            {
+                bulleting = true;
+                //bullet things
+                int bRand = UnityEngine.Random.Range(0, 4);
+                switch(bRand)
+                {
+                    case 1:
+                        bulletFront = true;
+                        bulletRight = false;
+                        break; 
+                    case 2:
+                        bulletFront = true;
+                        bulletRight = true;
+                        break;
+                    case 3:
+                        bulletFront = false;
+                        bulletRight = false;
+                        break;
+                    default:
+                        bulletFront = false;
+                        bulletRight = true;
+                        break;
+
+                }
+                bulletDuration = 10;
+            }
+            else
+            {
+                bulletDuration -= Time.deltaTime;
+                if (bulletDuration <= 0)
+                {
+                    bulletCD = 20.0f;
+                    bulleting = false;
+                }
+            }
+        }
 
         if (!attacking)
 		{
@@ -140,21 +200,49 @@ public class EnemyAttack : MonoBehaviour {
                 }
             }
 		}
+        bulletSetter();
 
-	}
+        ParticleSystem.EmissionModule em = bullet.GetComponent<ParticleSystem>().emission;
+        em.enabled = bulleting;
+
+        if (bulleting)
+        {
+            ParticleSystem p = bullet.GetComponent<ParticleSystem>();
+            ParticleSystem.VelocityOverLifetimeModule v = p.velocityOverLifetime;
+            v.x = new ParticleSystem.MinMaxCurve(b_velocity.x); v.z = new ParticleSystem.MinMaxCurve(b_velocity.z);
+            ParticleSystem.ForceOverLifetimeModule f = p.forceOverLifetime;
+            f.x = new ParticleSystem.MinMaxCurve(b_force.x);
+            //bulleting = false;
+        }
+    }
 
     void setPatternRot()
     {
         rotProj = gameObject.transform.rotation;
         if (chase)
         {
-            float lead = player.GetComponentInChildren<PlayerController>().getTrackingMomentum();
+            float lead = player.GetComponentInChildren<PlayerController>().getTrackingMomentum(speeds[currentAttack.getType()]);
             lead *= player.GetComponentInChildren<PlayerController>().getRadius();
             lead /= speeds[currentAttack.getType()];
 
-            Debug.Log(speeds[currentAttack.getType()]);
             rotProj *= Quaternion.AngleAxis(lead, transform.up);
         }
+    }
+
+    void bulletSetter()
+    {
+        b_velocity.z = player.transform.GetChild(0).localPosition.z;
+
+        if (bulletFront)
+            b_velocity.z += 0.5f;
+        else
+            b_velocity.z -= 1.5f;
+
+        b_velocity.x = b_velocity.z;
+        if (bulletRight)
+            b_velocity.x *= -1;
+
+        b_force.x = b_velocity.x * -2;
     }
 
     void newProjectile(int p, float angle)

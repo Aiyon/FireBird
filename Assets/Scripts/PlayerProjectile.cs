@@ -26,6 +26,7 @@ public class PlayerProjectile : MonoBehaviour
     public string type; //weapon type
     string wName;
     int soundEffect;
+    bool eFire; //so explosive only hits once.
 
     //range rings
     public GameObject inRange;
@@ -40,6 +41,8 @@ public class PlayerProjectile : MonoBehaviour
 
     public GameObject flashLeft;
     public GameObject flashRight;
+    public RuntimeAnimatorController[] animMain;
+    public RuntimeAnimatorController animBulletR;
 
     public Text weaponText;
 
@@ -55,6 +58,17 @@ public class PlayerProjectile : MonoBehaviour
     bool[] isReloading;
     int[] reloadTime;
     int[] maxReloadTime;
+
+    //portal stuff
+    bool[] portalCool;
+    int[] portalCoolTime;
+    float portalHeat;
+    bool portalEntry = false;
+    bool portalExit = false;
+    public GameObject portalIn;
+    public GameObject portalOut;
+    float portalCD = 0;
+    bool ported = false;
 
     int equipped; //which weapon is equipped
 
@@ -120,6 +134,9 @@ public class PlayerProjectile : MonoBehaviour
             ammo[i] = -1;
             capacities[i] = -1;
         }
+
+        portalCool = new bool[isCooling.Length];
+        portalCoolTime = new int[coolTime.Length];
     }
 
     // Update is called once per frame
@@ -181,9 +198,14 @@ public class PlayerProjectile : MonoBehaviour
             if (type.ToLower() == "explosive")   //ballistic, energy
             {
                 //fire once for full AP
-                hitEnemy(AP);
-                fireTime = 0;
-                heatSlider.value += heat;
+                fireTime -= Time.deltaTime;
+
+                if (eFire)
+                {
+                    hitEnemy(AP);
+                    heatSlider.value += heat;
+                    eFire = false;
+                }
             }
             else
             {
@@ -277,6 +299,64 @@ public class PlayerProjectile : MonoBehaviour
             else heatSlider.value -= Time.deltaTime;
         }
         if (gameObject.transform.localPosition.z != prevPos) rangeUpdate();
+
+        if (portalEntry)
+            portalIn.transform.LookAt(Camera.main.transform.position, -Vector3.up);
+        if (portalExit)
+            portalOut.transform.LookAt(Camera.main.transform.position, -Vector3.up);
+
+        if(ported)
+        {
+            portalCD -= Time.deltaTime;
+            if(portalCD <= 0)
+            {
+                portalIn.GetComponent<SpriteRenderer>().enabled = true;
+                portalOut.GetComponent<SpriteRenderer>().enabled = true;
+                ported = false;
+            }
+        }
+        else if (portalEntry && portalExit)
+        {
+            Vector3 portalDist = gameObject.transform.position - portalIn.transform.position;
+            if(portalDist.magnitude <= 2)
+            {
+                gameObject.transform.position = portalOut.transform.position;
+                Array.Copy(portalCool, isCooling, portalCool.Length);
+                Array.Copy(portalCoolTime, coolTime, portalCoolTime.Length);
+                heatSlider.value = portalHeat;
+                portalCD = 120;
+                ported = true;
+                portalIn.GetComponent<SpriteRenderer>().enabled = false;
+                portalOut.GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
+        else
+        {
+            if (!portalEntry && Input.GetKeyDown(KeyCode.KeypadPlus))
+            {
+                //place portal entry at player.
+                if(portalExit)
+                {
+                    //check distance, if <5, dont place
+                }
+                portalIn.transform.position = gameObject.transform.position;
+                portalIn.GetComponent<SpriteRenderer>().enabled = true;
+                panelButtons[12].GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f, 0.3f);
+                portalEntry = true;
+            }
+            if (!portalExit && Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                //place portal exit at player
+                portalOut.transform.position = gameObject.transform.position;
+                portalOut.GetComponent<SpriteRenderer>().enabled = true;
+                Array.Copy(isCooling, portalCool, isCooling.Length);
+                Array.Copy(coolTime, portalCoolTime, coolTime.Length);
+                portalHeat = heatSlider.value;
+                Debug.Log("PH: " + portalHeat);
+                panelButtons[16].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+                portalExit = true;
+            }
+        }
     }
 
     public void fire()
@@ -311,24 +391,37 @@ public class PlayerProjectile : MonoBehaviour
         firing = true;
         fireTime = duration;
         gameObject.GetComponent<PlayerController>().setFiring(true);
-        flashLeft.SetActive(true);
-        flashRight.SetActive(true);
-        if(soundEffect != -1) gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect], 1.0f);
+        
+        
+        //flashLeft.SetActive(true);
+        
+        //flashRight.SetActive(true);
+        
+
+        if (soundEffect != -1) gameObject.GetComponent<AudioSource>().PlayOneShot(weaponSounds[soundEffect], 1.0f);
 
 
         int t = 0;
         switch (type.ToLower())
         {
             case "ballistic":
+                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
+                flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
+                flashRight.SetActive(true);
                 t = 0;
                 break;
             case "energy":
+                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[1];
                 t = 1;
                 break;
             case "explosive":
+                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[2];
+                eFire = true;
                 t = 2;
                 break;
         }
+        flashLeft.SetActive(true);
+
         gameObject.GetComponent<PlayerController>().Enemy.GetComponent<EnemyHealth>().newAtk(t);
 
     }
