@@ -9,7 +9,7 @@ public class ProjectileMotion : MonoBehaviour {
     public string type;
 
     public GameObject sprite;
-    public Sprite[] facings;
+    public RuntimeAnimatorController[] facings;
 
     GameObject player;
 
@@ -18,10 +18,10 @@ public class ProjectileMotion : MonoBehaviour {
     {
         alter = 0;
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
+
+    // Update is called once per frame
+    void Update()
+    {
         if (Globals.paused) return;
 
         transform.position -= transform.forward * speed * Time.deltaTime;
@@ -33,7 +33,7 @@ public class ProjectileMotion : MonoBehaviour {
         int iT = player.transform.GetChild(0).gameObject.GetComponent<PlayerController>().getMD();
         float temp = Mathf.Abs(player.transform.GetChild(0).localPosition.z) + 5; if (temp > iT) temp = iT; //hard cap on delete range
         if (Mathf.Abs(transform.localPosition.z) > temp) //> 32)
-            Destroy (gameObject);
+            Destroy(gameObject);
 
         if (player != null)
         {
@@ -61,7 +61,7 @@ public class ProjectileMotion : MonoBehaviour {
             }
         }
 
-        if(alter == 1)
+        if (alter == 1)
         {
             Vector3 pos = transform.position - player.transform.GetChild(0).position;
             var newRot = Quaternion.LookRotation(pos);
@@ -72,14 +72,22 @@ public class ProjectileMotion : MonoBehaviour {
         if (tempR > 180) tempR -= 360;
         if (tempR < -180) tempR += 360;
 
-        if (tempR <= -90) setFace(6);
-        else if (tempR <= -60) setFace(5);
-        else if (tempR <= -30) setFace(4);
-        else if (tempR >= 90) setFace(0);
-        else if (tempR >= 60) setFace(1);
-        else if (tempR >= 30) setFace(2);
-        else setFace(3);
+        float absR = Mathf.Abs(tempR);
+
+        if (absR == 0) setFace(0);
+        else if (absR < 10) setFace(1);
+        else if (absR < 20) setFace(2);
+        else if (absR < 30) setFace(3);
+        else if (absR < 45) setFace(4);
+        else if (absR < 90) setFace(5);
+
+        if (tempR < 0)
+        {
+            setFlip(false);
+        }
+        else setFlip(true);
     }
+
 
     public void setPlayer(GameObject gObj)
     {
@@ -88,7 +96,19 @@ public class ProjectileMotion : MonoBehaviour {
 
     void setFace(int i)
     {
-        sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
+        sprite.GetComponent<Animator>().runtimeAnimatorController = facings[i];
+    }
+
+    void setFlip(bool f)
+    {
+        Vector3 s = sprite.transform.localScale;
+        if (f)
+        {
+            s.x = -4;
+            }
+        else s.x = 4;
+
+        sprite.transform.localScale = s;
     }
 
     public void setShit(int dmg, float spd)

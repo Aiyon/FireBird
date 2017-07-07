@@ -49,10 +49,11 @@ public class PlayerController : MonoBehaviour {
 
     public Sprite[] facings;
     public RuntimeAnimatorController [] anims;
-    //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right, 7 = forward, 8 = idle
+    public RuntimeAnimatorController[] shootAnims;
+
+    //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right, 7 = forward, 8 = back
     public GameObject sprite;
 
-    public RuntimeAnimatorController[] shootAnims;
 
     public Button menu;
 
@@ -234,8 +235,10 @@ public class PlayerController : MonoBehaviour {
         //set non-idle facings.
         if (rMomentum == 0)
         {
-            if (zMomentum <= 0)
+            if (zMomentum == 0)
                 setFacing(0);
+            else if (zMomentum <= 0)
+                setFacing(8);
             else setFacing(7);
         }
         else if (rMomentum > 0)  //clockwise aka left.
@@ -354,8 +357,15 @@ public class PlayerController : MonoBehaviour {
 
     void setFacing(int i)
     {
-        sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
-        sprite.GetComponent<Animator>().runtimeAnimatorController = anims[i];
+        if (!getFiring())
+        {
+            sprite.GetComponent<SpriteRenderer>().sprite = facings[i];
+            sprite.GetComponent<Animator>().runtimeAnimatorController = anims[i];
+        }
+        else
+        {
+            sprite.GetComponent<Animator>().runtimeAnimatorController = shootAnims[i];
+        }
     }
 
     public float getTrackingMomentum(float pSpeed)

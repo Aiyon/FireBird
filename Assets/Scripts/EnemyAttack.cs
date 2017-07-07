@@ -100,7 +100,7 @@ public class EnemyAttack : MonoBehaviour {
         }
         else
         {
-            if (!bulleting)
+            if (!bulleting && Mathf.Abs(player.transform.GetChild(0).localPosition.z) > shortMax)
             {
                 bulleting = true;
                 //bullet things

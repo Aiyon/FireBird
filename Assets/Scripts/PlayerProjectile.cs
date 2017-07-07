@@ -402,9 +402,11 @@ public class PlayerProjectile : MonoBehaviour
 
 
         int t = 0;
+        Debug.Log(type.ToLower());
         switch (type.ToLower())
         {
             case "ballistic":
+                Debug.Log("set Ballistic");
                 flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
                 flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
                 flashRight.SetActive(true);
@@ -455,7 +457,7 @@ public class PlayerProjectile : MonoBehaviour
 
     public void equip(int weapon)
     {
-        panelButtons[equipped].GetComponent<Image>().color = new Color(255, 255, 255, 0.4f);
+        panelButtons[equipped].GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
         equipped = weapon;
 
         string[] stats = m_Weapons[equipped].Split(',');
