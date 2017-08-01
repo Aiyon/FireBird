@@ -248,7 +248,7 @@ public class EnemyAttack : MonoBehaviour {
     void newProjectile(int p, float angle)
 	{
 		Vector3 vProj = gameObject.transform.position;
-		vProj.y = 0.5f;
+		vProj.y = 0.75f;
         Quaternion pRot = rotProj * Quaternion.AngleAxis(-angle, transform.up);
         GameObject proj = (GameObject)Instantiate(projectile[types[p]], vProj, pRot);
         proj.GetComponent<ProjectileMotion>().setPlayer(player);

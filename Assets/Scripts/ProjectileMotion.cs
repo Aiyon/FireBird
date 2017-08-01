@@ -11,7 +11,7 @@ public class ProjectileMotion : MonoBehaviour {
     public GameObject sprite;
     public RuntimeAnimatorController[] facings;
 
-    GameObject player;
+    public GameObject player;
 
 	// Use this for initialization
 	void Start ()
@@ -41,7 +41,7 @@ public class ProjectileMotion : MonoBehaviour {
             sprite.transform.rotation = Quaternion.Euler(rot);
         }
 
-        if (type.ToLower() == "missile")
+        if (type.ToLower() == "homing")
         {
             float pTemp = player.transform.GetChild(0).localPosition.magnitude;
             //course correct
@@ -59,6 +59,19 @@ public class ProjectileMotion : MonoBehaviour {
                 Debug.Log(alter);
                 alter = 2;
             }
+        }
+        if (type.ToLower() == "breakable" && sprite.transform.localEulerAngles.y < 20 && player.GetComponentInChildren<PlayerController>().getFiring())
+        {
+            //Vector3 pTemp = player.transform.GetChild(0).position.normalized;
+            //Vector3 projAngle = gameObject.transform.position.normalized;
+
+            float t = -90 / (Mathf.PI * player.transform.GetChild(0).position.z);
+            if (Mathf.Abs(sprite.transform.localEulerAngles.y) <= t)
+            {
+                Debug.Log("boom");
+                Destroy(gameObject);
+            }
+
         }
 
         if (alter == 1)
@@ -120,6 +133,11 @@ public class ProjectileMotion : MonoBehaviour {
     public int getDamage()
     {
         return damage;
+    }
+
+    public string getType()
+    {
+        return type;
     }
 
 }

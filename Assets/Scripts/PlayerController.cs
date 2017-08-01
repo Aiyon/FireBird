@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
 	private GameObject parent;
 	public GameObject Enemy;
 
+    public GameObject bgClouds;
+    public GameObject bgMountain;
+
     public int rotSpeed;
 	private float rMomentum;
     private float rAccel;
@@ -159,6 +162,18 @@ public class PlayerController : MonoBehaviour {
             strafe = true;
             parent.transform.Rotate(0, rMomentum * Time.deltaTime, 0);
             Enemy.transform.Rotate(0, rMomentum * Time.deltaTime, 0);
+
+            Vector3 bgT = bgMountain.transform.localPosition;
+            bgT.x += rMomentum * Time.deltaTime * 0.005f;
+            if (bgT.x >= 1.33f) bgT.x -= 1.33f;
+            if (bgT.x <= -1.33f) bgT.x += 1.33f;
+            bgMountain.transform.localPosition = bgT;
+
+            bgT = bgClouds.transform.localPosition;
+            bgT.x += rMomentum * Time.deltaTime * 0.004f;
+            if (bgT.x >= 1.33f) bgT.x -= 1.33f;
+            if (bgT.x <= -1.33f) bgT.x += 1.33f;
+            bgClouds.transform.localPosition = bgT;
 
             if (Mathf.Abs(rMomentum) >= adjSpeed * 0.9f)
             {

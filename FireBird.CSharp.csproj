@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\DetailSpriteController.cs" />
     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileMotion.cs" />
+    <Compile Include="Assets\Scripts\TerrainMaker.cs" />
     <Compile Include="Assets\Splines\Bezier.cs" />
     <Compile Include="Assets\Splines\BezierCurve.cs" />
     <Compile Include="Assets\Splines\BezierSpline.cs" />
