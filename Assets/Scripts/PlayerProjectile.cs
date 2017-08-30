@@ -47,6 +47,7 @@ public class PlayerProjectile : MonoBehaviour
     public Text weaponText;
 
     public GameObject[] panelButtons;
+    public Sprite[] buttonTypes;
     public AudioClip[] weaponSounds;   //Flamethrower, Gauss, Ion, Javelin, LS, Railgun, RPG
 
     bool firing;
@@ -120,8 +121,6 @@ public class PlayerProjectile : MonoBehaviour
             maxReloadTime[i] = int.Parse(m_Weapons[i].Split(',')[7])*60; //reload
         }
 
-        equipped = 0;
-
         inRange.transform.localScale = Vector3.zero;
         tooClose.transform.localScale = Vector3.zero;
 
@@ -137,6 +136,8 @@ public class PlayerProjectile : MonoBehaviour
 
         portalCool = new bool[isCooling.Length];
         portalCoolTime = new int[coolTime.Length];
+
+        equip(5);
     }
 
     // Update is called once per frame
@@ -402,11 +403,9 @@ public class PlayerProjectile : MonoBehaviour
 
 
         int t = 0;
-        Debug.Log(type.ToLower());
         switch (type.ToLower())
         {
             case "ballistic":
-                Debug.Log("set Ballistic");
                 flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
                 flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
                 flashRight.SetActive(true);
@@ -457,7 +456,24 @@ public class PlayerProjectile : MonoBehaviour
 
     public void equip(int weapon)
     {
-        panelButtons[equipped].GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
+        switch(type.ToLower())
+        {
+            case "explosive":
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[2];
+                break;
+
+            case "ballistic":
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[3];
+                break;
+
+            case "energy":
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[1];
+                break;
+
+            default:
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[4];
+                break;
+        }
         equipped = weapon;
 
         string[] stats = m_Weapons[equipped].Split(',');
@@ -478,26 +494,24 @@ public class PlayerProjectile : MonoBehaviour
         if (capacities[equipped] == -1)
             capacities[equipped] = capacity;
         soundEffect = int.Parse(stats[10]);
-        Color highlight = new Color();
         switch (type.ToLower())
         {
             case "explosive":
-                highlight = new Color(255, 0, 0, 0.4f);
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[7];
                 break;
 
             case "ballistic":
-                highlight = new Color(0, 0, 255, 0.4f);
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[8];
                 break;
 
             case "energy":
-                highlight = new Color(0, 255, 0, 0.4f);
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[6];
                 break;
 
             default:
-                highlight = new Color(255, 255, 0, 0.4f);
+                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[10];
                 break;
         }
-        panelButtons[equipped].GetComponent<Image>().color = highlight;
         //get stats of equipped weapon (AP, heat, etc)
 
         inRange.transform.localScale = new Vector3(maxRange*0.4f,maxRange*0.4f,1.0f);

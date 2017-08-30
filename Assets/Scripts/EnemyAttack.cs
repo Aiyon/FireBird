@@ -74,7 +74,10 @@ public class EnemyAttack : MonoBehaviour {
         bulletID = 0;
         bulletCD = 10;
         bulletDuration = 10.0f;
-	}
+
+        ParticleSystem.EmissionModule em = bullet.GetComponent<ParticleSystem>().emission;
+        em.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -248,7 +251,7 @@ public class EnemyAttack : MonoBehaviour {
     void newProjectile(int p, float angle)
 	{
 		Vector3 vProj = gameObject.transform.position;
-		vProj.y = 0.75f;
+        vProj.y = UnityEngine.Random.Range(0.65f,0.85f);
         Quaternion pRot = rotProj * Quaternion.AngleAxis(-angle, transform.up);
         GameObject proj = (GameObject)Instantiate(projectile[types[p]], vProj, pRot);
         proj.GetComponent<ProjectileMotion>().setPlayer(player);

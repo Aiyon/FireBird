@@ -11,6 +11,12 @@ public class PlayerController : MonoBehaviour {
 	private GameObject parent;
 	public GameObject Enemy;
 
+    public GameObject cam;
+    private float shake = 0;
+    private float shakeAmt = 0.14f;
+    private float decrement = 0.4f;
+    private float fireShake = 0.05f;
+
     public GameObject bgClouds;
     public GameObject bgMountain;
 
@@ -57,6 +63,9 @@ public class PlayerController : MonoBehaviour {
     //0 = idle, 1 = left, 2 = right, 3 = forward-left, 4 = forward-right, 5 = back-left, 6 = back-right, 7 = forward, 8 = back
     public GameObject sprite;
 
+    bool playerHit;
+    float pHAngle;
+    float pHDist;
 
     public Button menu;
 
@@ -73,6 +82,7 @@ public class PlayerController : MonoBehaviour {
         dashID = -1;
         checkInterval = 20;
         pMomentum = new List<float>();
+        playerHit = false;
 
         Globals.paused = false;
     }
@@ -86,12 +96,29 @@ public class PlayerController : MonoBehaviour {
         {
             Globals.paused = !Globals.paused;
             GameObject[] objs = GameObject.FindGameObjectsWithTag("projectile");
-            foreach(GameObject g in objs)
+            foreach (GameObject g in objs)
             {
                 g.transform.GetChild(0).gameObject.SetActive(!Globals.paused);
             }
         }
         if (Globals.paused) return;
+
+        if (playerHit)
+        {
+            //if (pHAngle < 0)
+            //{
+            //    pHAngle += 2;
+            //    if (pHAngle > 0) pHAngle = 0;
+            //}
+            //if(pHDist > 0)
+            //{
+            //    pHDist -= 4 * Time.deltaTime;
+            //    if (pHDist < 0) pHDist = 0;
+            //}
+
+            //if (pHAngle == 0 && pHDist == 0) playerHit = false;
+        }
+
 
         bool strafe = false;
 
@@ -204,7 +231,7 @@ public class PlayerController : MonoBehaviour {
 
         if (dashDuration > 0)
         {
-            switch(dashID)
+            switch (dashID)
             {
                 case 0:
                     zMomentum = radialSpeed * 2f;
@@ -274,12 +301,16 @@ public class PlayerController : MonoBehaviour {
                 setFacing(6);
         }
 
-        if (OPTimer > 0 && (outpacingR||outpacingL))
+        if (OPTimer > 0 && (outpacingR || outpacingL))
         {
             OPTimer -= Time.deltaTime;
             if (OPTimer <= 0)
-                Enemy.GetComponent<EnemyHealth>().spriteFacing(0);         
+                Enemy.GetComponent<EnemyHealth>().spriteFacing(0);
         }
+
+        Vector3 camPos = cam.transform.localPosition;
+        camPos.x = rMomentum / rotSpeed;
+        cam.transform.localPosition = camPos;
 
         float tFloat = gameObject.transform.localPosition.z * -1000;
         int trueRange = (int)tFloat;
@@ -295,6 +326,46 @@ public class PlayerController : MonoBehaviour {
                     pMomentum.RemoveAt(0);
                 pMomentum.Add(rMomentum);
             }
+        }
+
+        if (firing)
+        {
+            shake = 0.05f;
+            //Vector3 pos = cam.transform.localPosition;
+            //pos.y = 1 + pHDist;
+            //Debug.Log(pos);
+            //cam.transform.localPosition = pos;
+
+            //Vector3 rot = cam.transform.localEulerAngles;
+            //rot.x = pHAngle;
+            //cam.transform.localEulerAngles = rot;
+        }
+
+        if (shake > 0)
+        {
+            float tshake = 0;
+
+            if (firing)
+                tshake += fireShake;
+            if (playerHit)
+                tshake += shakeAmt;
+
+            Debug.Log(tshake);
+            Vector3 cTemp = UnityEngine.Random.insideUnitSphere * tshake;
+
+            if (firing && !playerHit)
+            { cTemp.x = 0; }
+
+            cTemp.y += 1;
+            cTemp.z = -1.75f;
+            cam.transform.localPosition = cTemp;
+            shake -= Time.deltaTime * decrement;
+
+        }
+        else if (playerHit)
+        {
+            playerHit = false;
+            Time.timeScale = 1;
         }
     }
 
@@ -328,13 +399,22 @@ public class PlayerController : MonoBehaviour {
 		{
 			float dmg = col.gameObject.GetComponent<ProjectileMotion>().getDamage();
 			currentHealth -= dmg;
-			Destroy (col.gameObject);
+            col.gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(0, 0, 0);
+            col.gameObject.GetComponent<ProjectileMotion>().setShit(0,0);
+			Destroy (col.gameObject, 0.05f);
             if(dashing)
             {
                 dashDuration = 0;
             }
+            //pHAngle = -10;
+            pHDist = 0.25f;
+            playerHit = true;
 
+            shake = shakeAmt;
+
+            rMomentum = rMomentum * 0.6f;
             zMomentum = Mathf.Clamp(zMomentum - dmg / 50, 0, radialSpeed); 	//knockback - can only slow player's forward movement, can't push them backwards.
+            Time.timeScale = 0.5f; 
         }
 	}
 
@@ -393,7 +473,6 @@ public class PlayerController : MonoBehaviour {
         start = pMomentum.Count - 3;
         for (int i = start; i < pMomentum.Count; i++)
         {
-            Debug.Log("blarg");
             trackAmt += pMomentum[i];
         }
         //Debug.Log(trackAmt);

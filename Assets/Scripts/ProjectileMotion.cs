@@ -69,7 +69,7 @@ public class ProjectileMotion : MonoBehaviour {
             if (Mathf.Abs(sprite.transform.localEulerAngles.y) <= t)
             {
                 Debug.Log("boom");
-                Destroy(gameObject);
+                Destroy(gameObject, 0.5f);
             }
 
         }
