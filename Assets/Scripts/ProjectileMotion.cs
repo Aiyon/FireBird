@@ -10,13 +10,17 @@ public class ProjectileMotion : MonoBehaviour {
 
     public GameObject sprite;
     public RuntimeAnimatorController[] facings;
+    RuntimeAnimatorController blankAnim;
 
     public GameObject player;
+
+    bool destroyed;
 
 	// Use this for initialization
 	void Start ()
     {
         alter = 0;
+        destroyed = false;
 	}
 
     // Update is called once per frame
@@ -69,7 +73,10 @@ public class ProjectileMotion : MonoBehaviour {
             if (Mathf.Abs(sprite.transform.localEulerAngles.y) <= t)
             {
                 Debug.Log("boom");
-                Destroy(gameObject, 0.5f);
+                gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(0, 0, 0);
+                gameObject.GetComponent<ProjectileMotion>().setShit(0, 0);
+                StartCoroutine(whiteFlash());
+                Destroy(gameObject, 0.1f);
             }
 
         }
@@ -81,30 +88,41 @@ public class ProjectileMotion : MonoBehaviour {
             transform.rotation = Quaternion.Lerp(transform.rotation, newRot, 0.1f);
         }
 
-        float tempR = sprite.transform.localEulerAngles.y; tempR *= -1;
-        if (tempR > 180) tempR -= 360;
-        if (tempR < -180) tempR += 360;
-
-        float absR = Mathf.Abs(tempR);
-
-        if (absR == 0) setFace(0);
-        else if (absR < 10) setFace(1);
-        else if (absR < 20) setFace(2);
-        else if (absR < 30) setFace(3);
-        else if (absR < 45) setFace(4);
-        else if (absR < 90) setFace(5);
-
-        if (tempR < 0)
+        if (!destroyed)
         {
-            setFlip(false);
+            float tempR = sprite.transform.localEulerAngles.y; tempR *= -1;
+            if (tempR > 180) tempR -= 360;
+            if (tempR < -180) tempR += 360;
+
+            float absR = Mathf.Abs(tempR);
+
+            if (absR == 0) setFace(0);
+            else if (absR < 10) setFace(1);
+            else if (absR < 20) setFace(2);
+            else if (absR < 30) setFace(3);
+            else if (absR < 45) setFace(4);
+            else if (absR < 90) setFace(5);
+
+            if (tempR < 0)
+            {
+                setFlip(false);
+            }
+            else setFlip(true);
         }
-        else setFlip(true);
     }
 
+    IEnumerator whiteFlash()
+    {
+        yield return new WaitForSeconds(0.05f);
+        gameObject.GetComponent<ProjectileMotion>().setAnimator(blankAnim);
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1);
+        yield return null;
+    }
 
-    public void setPlayer(GameObject gObj)
+    public void setPlayer(GameObject gObj, RuntimeAnimatorController rac)
     {
         player = gObj;
+        blankAnim = rac;
     }
 
     void setFace(int i)
@@ -140,4 +158,9 @@ public class ProjectileMotion : MonoBehaviour {
         return type;
     }
 
+    public void setAnimator(RuntimeAnimatorController rac)
+    {
+        gameObject.GetComponentInChildren<Animator>().runtimeAnimatorController = rac;
+        destroyed = true;
+    }
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour {
     bool dashing = false;
     int dashID;
     float dashDuration;
+
+    public RuntimeAnimatorController blankAnim;
 
 //    int equipped = 0;
     bool firing;
@@ -401,7 +404,8 @@ public class PlayerController : MonoBehaviour {
 			currentHealth -= dmg;
             col.gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(0, 0, 0);
             col.gameObject.GetComponent<ProjectileMotion>().setShit(0,0);
-			Destroy (col.gameObject, 0.05f);
+            StartCoroutine(whiteFlash(col.gameObject));
+			Destroy (col.gameObject, 0.075f);
             if(dashing)
             {
                 dashDuration = 0;
@@ -417,6 +421,14 @@ public class PlayerController : MonoBehaviour {
             Time.timeScale = 0.5f; 
         }
 	}
+
+    IEnumerator whiteFlash(GameObject g)
+    {
+        yield return new WaitForSeconds(0.025f);
+        g.GetComponent<ProjectileMotion>().setAnimator(blankAnim);
+        g.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1);
+        yield return null;
+    }
 
 	float AccelerateTowards(float current, float target, float speed)
 	{

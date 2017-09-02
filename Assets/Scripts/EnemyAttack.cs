@@ -44,6 +44,8 @@ public class EnemyAttack : MonoBehaviour {
     private int patternOffset;
     private Quaternion rotProj;
 
+    public RuntimeAnimatorController blankAnim;
+
     // Use this for initialization
     void Start ()
 	{
@@ -254,7 +256,7 @@ public class EnemyAttack : MonoBehaviour {
         vProj.y = UnityEngine.Random.Range(0.65f,0.85f);
         Quaternion pRot = rotProj * Quaternion.AngleAxis(-angle, transform.up);
         GameObject proj = (GameObject)Instantiate(projectile[types[p]], vProj, pRot);
-        proj.GetComponent<ProjectileMotion>().setPlayer(player);
+        proj.GetComponent<ProjectileMotion>().setPlayer(player, blankAnim);
         proj.GetComponent<ProjectileMotion>().setShit(damages[p], speeds[p]);
     }
 
