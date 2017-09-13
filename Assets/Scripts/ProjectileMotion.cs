@@ -64,7 +64,7 @@ public class ProjectileMotion : MonoBehaviour {
                 alter = 2;
             }
         }
-        if (type.ToLower() == "breakable" && sprite.transform.localEulerAngles.y < 20 && player.GetComponentInChildren<PlayerController>().getFiring())
+        if (type.ToLower() == "breakable" && Mathf.Abs(sprite.transform.localEulerAngles.y) < 20 && player.GetComponentInChildren<PlayerController>().getFiring())
         {
             //Vector3 pTemp = player.transform.GetChild(0).position.normalized;
             //Vector3 projAngle = gameObject.transform.position.normalized;
@@ -132,12 +132,17 @@ public class ProjectileMotion : MonoBehaviour {
 
     void setFlip(bool f)
     {
+        float temp = 0;
+        if (type.ToLower() == "Default")
+            temp = 4;
+        else temp = 5;
+
         Vector3 s = sprite.transform.localScale;
         if (f)
         {
-            s.x = -4;
-            }
-        else s.x = 4;
+            s.x = -temp;
+        }
+        else s.x = temp;
 
         sprite.transform.localScale = s;
     }

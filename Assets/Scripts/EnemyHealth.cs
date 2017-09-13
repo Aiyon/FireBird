@@ -34,6 +34,11 @@ public class EnemyHealth : MonoBehaviour
     public Slider sliderAF;
     public Text textAF;
 
+    //public RuntimeAnimatorController rac;
+    public GameObject splosion;
+    bool sploding;
+    bool flashing;
+
     // Use this for initialization
     void Start()
     {
@@ -48,7 +53,9 @@ public class EnemyHealth : MonoBehaviour
         numDefs = 3;
 
         tCount = 0;
-
+        sploding = false;
+        flashing = false;
+        
         typeCount = new int[3] { 0, 0, 0 };
     }
 
@@ -139,7 +146,36 @@ public class EnemyHealth : MonoBehaviour
                     updateDefenses();
                 }
                 break;
+            case 3: //none left
+                AP = Mathf.Clamp(AP - damage, 0, AP);
+                break;
         }
+
+        if (!flashing)
+            StartCoroutine(hitFlash());
+        if(!sploding)
+            StartCoroutine(splode());
+    }
+
+    IEnumerator splode()    //plays explosion animation when enemy hit. 
+    {
+        sploding = true;
+        splosion.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        sploding = false;
+        splosion.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator hitFlash() //makes enemy flash when hit.
+    {
+        flashing = true;
+        sprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        yield return new WaitForSeconds(0.05f);
+        sprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+        yield return new WaitForSeconds(0.1f);
+        flashing = false;
+        yield return null;
     }
 
     public void spriteFacing(int i)
@@ -152,6 +188,7 @@ public class EnemyHealth : MonoBehaviour
         if (numDefs <= 0)
         {
             tCount = -40;
+            activeDef = 3;
             return;
         }
             //Debug.Log("change defense mode");

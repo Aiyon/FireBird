@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject cam;
     private float shake = 0;
+    private float fShake = 0;
     private float shakeAmt = 0.14f;
     private float decrement = 0.4f;
     private float fireShake = 0.05f;
@@ -333,7 +334,7 @@ public class PlayerController : MonoBehaviour {
 
         if (firing)
         {
-            shake = 0.05f;
+            fShake = 0.05f;
             //Vector3 pos = cam.transform.localPosition;
             //pos.y = 1 + pHDist;
             //Debug.Log(pos);
@@ -344,13 +345,13 @@ public class PlayerController : MonoBehaviour {
             //cam.transform.localEulerAngles = rot;
         }
 
-        if (shake > 0)
+        if (shake > 0 || fShake > 0)
         {
             float tshake = 0;
 
-            if (firing)
+            if (firing && fShake > 0)
                 tshake += fireShake;
-            if (playerHit)
+            if (playerHit && shake > 0)
                 tshake += shakeAmt;
 
             Debug.Log(tshake);
@@ -363,6 +364,7 @@ public class PlayerController : MonoBehaviour {
             cTemp.z = -1.75f;
             cam.transform.localPosition = cTemp;
             shake -= Time.deltaTime * decrement;
+            fShake -= Time.deltaTime * decrement;
 
         }
         else if (playerHit)

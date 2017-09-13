@@ -1,6 +1,7 @@
 Three numbers, back end of short, med and long. XL is beyond there till just past max player range.
-10,20,30
+15,30,45
 
 FORMAT: Type (0 = FBall, 1 = miss),Damage,Speed
 0,100,6
-1,120,6
+1,100,8
+2,100,6
