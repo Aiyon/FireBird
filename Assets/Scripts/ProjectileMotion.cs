@@ -43,6 +43,10 @@ public class ProjectileMotion : MonoBehaviour {
         {
             Vector3 rot = player.transform.rotation.eulerAngles; rot.z *= -1;
             sprite.transform.rotation = Quaternion.Euler(rot);
+
+            rot = transform.position - player.transform.GetChild(0).position;
+            rot.z += 5;
+            sprite.transform.rotation = Quaternion.LookRotation(rot);
         }
 
         if (type.ToLower() == "homing")

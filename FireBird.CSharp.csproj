@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileMotion.cs" />
     <Compile Include="Assets\Scripts\TerrainMaker.cs" />
+    <Compile Include="Assets\Scripts\inputchecker.cs" />
     <Compile Include="Assets\Splines\Bezier.cs" />
     <Compile Include="Assets\Splines\BezierCurve.cs" />
     <Compile Include="Assets\Splines\BezierSpline.cs" />

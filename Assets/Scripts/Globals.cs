@@ -20,4 +20,13 @@ public static class Globals
 
     public static bool paused;
 
+    private static int keySetting;
+
+    public static void setKeySetting(int i)
+    {
+        keySetting = i;
+    }
+    
+    public static int getKeySetting()
+    { return keySetting; }
 }

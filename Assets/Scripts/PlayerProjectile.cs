@@ -46,10 +46,14 @@ public class PlayerProjectile : MonoBehaviour
 
     public Text weaponText;
 
-    public GameObject[] panelButtons;
+    GameObject[] panelButtonsCurrent;
+    public GameObject[] panelButtons0;
+    public GameObject[] panelButtons1;
+    public GameObject[] panelButtons2;
+    public GameObject[] keyboardSets;
     public Sprite[] buttonTypes;
     public AudioClip[] weaponSounds;   //Flamethrower, Gauss, Ion, Javelin, LS, Railgun, RPG
-
+    
     bool firing;
     bool[] isCooling;
     int[] coolTime;
@@ -111,9 +115,13 @@ public class PlayerProjectile : MonoBehaviour
         reloadTime = new int[m_Weapons.Count];
         isReloading = new bool[m_Weapons.Count];
         inOperable = new bool[m_Weapons.Count];
-
+        
         maxCoolTime = new int[m_Weapons.Count];
         maxReloadTime = new int[m_Weapons.Count];
+
+        panelButtonsCurrent = new GameObject[17];
+        Globals.setKeySetting(0);
+        setKeyboard(Globals.getKeySetting());
 
         for (int i = 0; i < m_Weapons.Count; i++)
         {
@@ -145,53 +153,33 @@ public class PlayerProjectile : MonoBehaviour
     {
         if (!gameObject.GetComponent<PlayerController>().getFiring() && !firing)
         {
-            if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+            switch(Globals.getKeySetting())
             {
-                if (equipped != 0) equip(0); else fire();
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                if (equipped != 1) equip(1); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                if (equipped != 2) equip(2); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad3))
-            {
-                if (equipped != 3) equip(3); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad4))
-            {
-                if (equipped != 4) equip(4); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad5))
-            {
-                if (equipped != 5) equip(5); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad6))
-            {
-                if (equipped != 6) equip(6); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad7))
-            {
-                if (equipped != 7) equip(7); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad8))
-            {
-                if (equipped != 8) equip(8); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.Keypad9))
-            {
-                if (equipped != 9) equip(9); else fire();
-            }
-            else if (Input.GetKeyDown(KeyCode.KeypadDivide))
-            {
-                if (equipped != 10) equip(10); else fire();
+                case 0:
+                    keyboardCheck0();
+                    break;
+                case 1:
+                    keyboardCheck1();
+                    break;
+                case 2:
+                    keyboardCheck2();
+                    break;
             }
         }
 
 
+        //if(Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    setKeyboard(0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    setKeyboard(1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    setKeyboard(2);
+        //}
         if (Globals.paused) return;
 
         if (firing)
@@ -263,7 +251,7 @@ public class PlayerProjectile : MonoBehaviour
                     float c1 = coolTime[i]; float c2 = maxCoolTime[i];
                     angle = c1 / c2;
                     //Debug.Log(c1 + ", " + c2 + ", " + angle);
-                    panelButtons[i].transform.GetChild(0).GetComponent<Image>().fillAmount = angle;
+                    panelButtonsCurrent[i].transform.GetChild(0).GetComponent<Image>().fillAmount = angle;
                 }
                 else
                 {
@@ -288,8 +276,8 @@ public class PlayerProjectile : MonoBehaviour
                 isReloading[i] = false;
             }
 
-            panelButtons[i].transform.GetChild(0).GetComponent<Image>().color = lightSetter;
-            panelButtons[i].transform.GetChild(0).GetComponent<Image>().fillAmount = angle;
+            panelButtonsCurrent[i].transform.GetChild(0).GetComponent<Image>().color = lightSetter;
+            panelButtonsCurrent[i].transform.GetChild(0).GetComponent<Image>().fillAmount = angle;
             //maxCoolTime / maxReloadTime;
         }
 
@@ -342,7 +330,7 @@ public class PlayerProjectile : MonoBehaviour
                 }
                 portalIn.transform.position = gameObject.transform.position;
                 portalIn.GetComponent<SpriteRenderer>().enabled = true;
-                panelButtons[12].GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f, 0.3f);
+                panelButtonsCurrent[12].GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f, 0.3f);
                 portalEntry = true;
             }
             if (!portalExit && Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -354,7 +342,7 @@ public class PlayerProjectile : MonoBehaviour
                 Array.Copy(coolTime, portalCoolTime, coolTime.Length);
                 portalHeat = heatSlider.value;
                 Debug.Log("PH: " + portalHeat);
-                panelButtons[16].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+                panelButtonsCurrent[16].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
                 portalExit = true;
             }
         }
@@ -459,19 +447,19 @@ public class PlayerProjectile : MonoBehaviour
         switch(type.ToLower())
         {
             case "explosive":
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[2];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[2];
                 break;
 
             case "ballistic":
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[3];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[3];
                 break;
 
             case "energy":
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[1];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[1];
                 break;
 
             default:
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[4];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[4];
                 break;
         }
         equipped = weapon;
@@ -497,19 +485,19 @@ public class PlayerProjectile : MonoBehaviour
         switch (type.ToLower())
         {
             case "explosive":
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[7];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[7];
                 break;
 
             case "ballistic":
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[8];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[8];
                 break;
 
             case "energy":
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[6];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[6];
                 break;
 
             default:
-                panelButtons[equipped].GetComponent<Image>().sprite = buttonTypes[10];
+                panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[10];
                 break;
         }
         //get stats of equipped weapon (AP, heat, etc)
@@ -706,6 +694,174 @@ public class PlayerProjectile : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    public void setKeyboard(int i)
+    {
+        for(int j = 0; j<3; j++)
+        {
+            if (j == i) keyboardSets[j].SetActive(true);
+            else keyboardSets[j].SetActive(false);
+        }
+        switch(i)
+        {
+            case 0:
+                panelButtonsCurrent = panelButtons0;
+                break;
+            case 1:
+                panelButtonsCurrent = panelButtons1;
+                break;
+            case 2:
+                panelButtonsCurrent = panelButtons2;
+                break;
+            default:
+                break;
+        }
+        Globals.setKeySetting(i);
+    }
+
+    void keyboardCheck0()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+        {
+            if (equipped != 0) equip(0); else fire();
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            if (equipped != 1) equip(1); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            if (equipped != 2) equip(2); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            if (equipped != 3) equip(3); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            if (equipped != 4) equip(4); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            if (equipped != 5) equip(5); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            if (equipped != 6) equip(6); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            if (equipped != 7) equip(7); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            if (equipped != 8) equip(8); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad9))
+        {
+            if (equipped != 9) equip(9); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.KeypadDivide))
+        {
+            if (equipped != 10) equip(10); else fire();
+        }
+    }
+
+    void keyboardCheck1()
+    {
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            if (equipped != 0) equip(0); else fire();
+        }
+        if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            if (equipped != 1) equip(1); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Period))
+        {
+            if (equipped != 2) equip(2); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            if (equipped != 3) equip(3); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (equipped != 4) equip(4); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Semicolon))
+        {
+            if (equipped != 5) equip(5); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            if (equipped != 6) equip(6); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (equipped != 7) equip(7); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (equipped != 8) equip(8); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftBracket))
+        {
+            if (equipped != 9) equip(9); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            if (equipped != 10) equip(10); else fire();
+        }
+    }
+
+    void keyboardCheck2()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+        {
+            if (equipped != 0) equip(0); else fire();
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            if (equipped != 1) equip(1); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            if (equipped != 2) equip(2); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            if (equipped != 3) equip(3); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            if (equipped != 4) equip(4); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            if (equipped != 5) equip(5); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            if (equipped != 6) equip(6); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            if (equipped != 7) equip(7); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            if (equipped != 8) equip(8); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad9))
+        {
+            if (equipped != 9) equip(9); else fire();
+        }
+        else if (Input.GetKeyDown(KeyCode.KeypadDivide))
+        {
+            if (equipped != 10) equip(10); else fire();
         }
     }
 }
