@@ -160,6 +160,7 @@ public class PlayerProjectile : MonoBehaviour
                     break;
                 case 1:
                     keyboardCheck1();
+                    Debug.Log("Blarg");
                     break;
                 case 2:
                     keyboardCheck2();
@@ -168,18 +169,6 @@ public class PlayerProjectile : MonoBehaviour
         }
 
 
-        //if(Input.GetKeyDown(KeyCode.Alpha0))
-        //{
-        //    setKeyboard(0);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    setKeyboard(1);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    setKeyboard(2);
-        //}
         if (Globals.paused) return;
 
         if (firing)
@@ -321,7 +310,7 @@ public class PlayerProjectile : MonoBehaviour
         }
         else
         {
-            if (!portalEntry && Input.GetKeyDown(KeyCode.KeypadPlus))
+            if (!portalEntry && placePortalEntrance())
             {
                 //place portal entry at player.
                 if(portalExit)
@@ -333,7 +322,7 @@ public class PlayerProjectile : MonoBehaviour
                 panelButtonsCurrent[12].GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f, 0.3f);
                 portalEntry = true;
             }
-            if (!portalExit && Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (!portalExit && placePortalExit())
             {
                 //place portal exit at player
                 portalOut.transform.position = gameObject.transform.position;
@@ -819,49 +808,81 @@ public class PlayerProjectile : MonoBehaviour
 
     void keyboardCheck2()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (equipped != 0) equip(0); else fire();
         }
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             if (equipped != 1) equip(1); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad2))
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             if (equipped != 2) equip(2); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad3))
+        else if (Input.GetKeyDown(KeyCode.V))
         {
             if (equipped != 3) equip(3); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
             if (equipped != 4) equip(4); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             if (equipped != 5) equip(5); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad6))
+        else if (Input.GetKeyDown(KeyCode.F))
         {
             if (equipped != 6) equip(6); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad7))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             if (equipped != 7) equip(7); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad8))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             if (equipped != 8) equip(8); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad9))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             if (equipped != 9) equip(9); else fire();
         }
-        else if (Input.GetKeyDown(KeyCode.KeypadDivide))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (equipped != 10) equip(10); else fire();
+        }
+    }
+
+    bool placePortalEntrance()
+    {
+        switch (Globals.getKeySetting())
+        {
+            case 0:
+                return Input.GetKeyDown(KeyCode.KeypadPlus);
+            case 1:
+                return Input.GetKeyDown(KeyCode.RightBracket);
+            case 2:
+                return Input.GetKeyDown(KeyCode.Alpha5);
+
+            default:
+                return false;
+        }
+    }
+
+    bool placePortalExit()
+    {
+        switch (Globals.getKeySetting())
+        {
+            case 0:
+                return Input.GetKeyDown(KeyCode.KeypadEnter);
+            case 1:
+                return Input.GetKeyDown(KeyCode.Quote);
+            case 2:
+                return Input.GetKeyDown(KeyCode.T);
+
+            default:
+                return false;
         }
     }
 }

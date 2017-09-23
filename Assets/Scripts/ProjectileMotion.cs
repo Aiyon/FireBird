@@ -44,9 +44,12 @@ public class ProjectileMotion : MonoBehaviour {
             Vector3 rot = player.transform.rotation.eulerAngles; rot.z *= -1;
             sprite.transform.rotation = Quaternion.Euler(rot);
 
-            rot = transform.position - player.transform.GetChild(0).position;
-            rot.z += 5;
-            sprite.transform.rotation = Quaternion.LookRotation(rot);
+            if (type.ToLower() != "default")
+            {
+                rot = transform.position - player.transform.GetChild(0).GetChild(0).position;
+                //rot.z = 80;
+                sprite.transform.rotation = Quaternion.LookRotation(rot);
+            }
         }
 
         if (type.ToLower() == "homing")
@@ -137,7 +140,7 @@ public class ProjectileMotion : MonoBehaviour {
     void setFlip(bool f)
     {
         float temp = 0;
-        if (type.ToLower() == "Default")
+        if (type.ToLower() == "default")
             temp = 4;
         else temp = 5;
 

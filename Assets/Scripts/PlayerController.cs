@@ -71,7 +71,8 @@ public class PlayerController : MonoBehaviour {
     float pHAngle;
     float pHDist;
 
-    public Button menu;
+    public Button menuButton;
+    public GameObject keyboardSetButton;
 
     // Use this for initialization
     void Start()
@@ -94,7 +95,8 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        menu.gameObject.SetActive(Globals.paused);
+        menuButton.gameObject.SetActive(Globals.paused);
+        keyboardSetButton.gameObject.SetActive(Globals.paused);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -136,28 +138,28 @@ public class PlayerController : MonoBehaviour {
 
         float tSpeed = 0;
 
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if (!moveKeyCheck("W") && !moveKeyCheck("S"))
         {
             zMomentum = AccelerateTowards(zMomentum, 0, radialSpeed / 30);
         }
 
-        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (!moveKeyCheck("A") && !moveKeyCheck("D"))
         {
             rMomentum = AccelerateTowards(rMomentum, 0, adjSpeed * rAccel * 0.7f);
         }
         if (!dashing) //cant change direction while dashing.
         {
             //CHECK IF PLAYER IS MOVING IN Z BEFORE DOING POLAR MOVE
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+            if (moveKeyCheck("W") || moveKeyCheck("S"))
                 adjSpeed /= Mathf.Sqrt(2);
 
             //POLAR/ROTATION MOVE
-            if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            if (moveKeyCheck("A") && !moveKeyCheck("D"))
             {
                 strafe = true;
                 rMomentum = AccelerateTowards(rMomentum, adjSpeed, adjSpeed * rAccel);
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (moveKeyCheck("D"))
             {
                 rMomentum = AccelerateTowards(rMomentum, adjSpeed * -1, adjSpeed * rAccel);
             }
@@ -167,11 +169,11 @@ public class PlayerController : MonoBehaviour {
             tSpeed = radialSpeed;
             if (strafe) tSpeed /= Mathf.Sqrt(2);
 
-            if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            if (moveKeyCheck("W") && !moveKeyCheck("S"))
             {
                 zMomentum = AccelerateTowards(zMomentum, tSpeed, tSpeed / 10);
             }
-            else if (Input.GetKey(KeyCode.S))
+            else if (moveKeyCheck("S"))
             {
                 zMomentum = AccelerateTowards(zMomentum, tSpeed * -1, tSpeed / 10);
             }
@@ -537,5 +539,38 @@ public class PlayerController : MonoBehaviour {
     public int getMD()
     {
         return maxDist;
+    }
+
+    public bool moveKeyCheck(string key)
+    {
+        if (Globals.getKeySetting() == 2)
+        {
+            switch (key)
+            {
+                case "W":
+                    return Input.GetKey(KeyCode.I);
+                case "A":
+                    return Input.GetKey(KeyCode.J);
+                case "S":
+                    return Input.GetKey(KeyCode.K);
+                case "D":
+                    return Input.GetKey(KeyCode.L);
+            }
+        }
+        else
+            switch (key)
+            {
+
+                case "W":
+                    Debug.Log("WOWZERS");
+                    return Input.GetKey(KeyCode.W);
+                case "A":
+                    return Input.GetKey(KeyCode.A);
+                case "S":
+                    return Input.GetKey(KeyCode.S);
+                case "D":
+                    return Input.GetKey(KeyCode.D);
+            }
+        return false;
     }
 }

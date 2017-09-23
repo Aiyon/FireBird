@@ -1,6 +1,0 @@
-Projectile:
-Type, Damage, Speed
-
-Pattern:
-Projectile, interval, duration/cooldown
-%waves%

@@ -84,6 +84,8 @@ public class EnemyHealth : MonoBehaviour
             case 2:
                 textAF.text += "\nACTIVE";
                 break;
+            default:
+                break;
         }
         if (def[0] <= 0) textAA.text = "DISABLED";
         if (def[1] <= 0) textES.text = "DISABLED";
