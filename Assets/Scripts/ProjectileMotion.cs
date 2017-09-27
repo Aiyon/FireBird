@@ -67,7 +67,6 @@ public class ProjectileMotion : MonoBehaviour {
             }
             else if (projAbs >= (pTemp * 0.6f))
             {
-                Debug.Log(alter);
                 alter = 2;
             }
         }

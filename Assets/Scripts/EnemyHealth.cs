@@ -43,11 +43,11 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         AP = 10000;
-        maxAA = 5000;
+        maxAA = 100;
         def[0] = maxAA;
-        maxES = 5000;
+        maxES = 100;
         def[1] = maxES;
-        maxAF = 5000;
+        maxAF = 100;
         def[2] = maxAF;
         activeDef = 0;
         numDefs = 3;
@@ -100,6 +100,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void playerProjHit(int damage, string type)
     {
+
         int t = -1;
         switch (type)
         {
@@ -129,7 +130,8 @@ public class EnemyHealth : MonoBehaviour
                 }
                 break;
             case 1: //shield
-                if (def[1] >= damage) def[1] -= damage;
+                if (def[1] >= damage)
+                    def[1] -= damage;
                 else
                 {
                     damage -= def[1]; def[1] = 0;
@@ -139,7 +141,8 @@ public class EnemyHealth : MonoBehaviour
                 }
                 break;
             case 2: //flare
-                if (def[2] >= damage) def[2] -= damage;
+                if (def[2] >= damage)
+                    def[2] -= damage;
                 else
                 {
                     damage -= def[2]; def[2] = 0;
@@ -148,7 +151,7 @@ public class EnemyHealth : MonoBehaviour
                     updateDefenses();
                 }
                 break;
-            case 3: //none left
+            default: //none left
                 AP = Mathf.Clamp(AP - damage, 0, AP);
                 break;
         }
@@ -198,11 +201,14 @@ public class EnemyHealth : MonoBehaviour
         int atkSum = typeCount[0] + typeCount[1] + typeCount[2];
         if (atkSum >= 5 || def[activeDef] <= 0)
         {
+            int test = 0;
+
             do
             {
                 activeDef++;
+                test++;
                 if (activeDef >= 3) activeDef = 0;
-            } while (def[activeDef] <= 0);
+            } while (def[activeDef] <= 0 && test < 10);
 
             typeCount[0] = typeCount[1] = typeCount[2] = 0;
             tCount = 0;

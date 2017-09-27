@@ -562,7 +562,6 @@ public class PlayerController : MonoBehaviour {
             {
 
                 case "W":
-                    Debug.Log("WOWZERS");
                     return Input.GetKey(KeyCode.W);
                 case "A":
                     return Input.GetKey(KeyCode.A);
