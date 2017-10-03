@@ -37,6 +37,10 @@ public class PlayerProjectile : MonoBehaviour
     public Image sliderbar;
     bool overheated;
 
+    //audio times for anim syncup
+    public float[] audioStart;
+    public float[] audioEnd;
+
     public string level; //LEVEL SETTER
 
     public GameObject flashLeft;
@@ -383,25 +387,56 @@ public class PlayerProjectile : MonoBehaviour
         switch (type.ToLower())
         {
             case "ballistic":
-                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
-                flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
-                flashRight.SetActive(true);
+                StartCoroutine(animToggle(equipped, 0));
+                //flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
+                //flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
+                //flashRight.SetActive(true);
                 t = 0;
                 break;
             case "energy":
-                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[1];
+                StartCoroutine(animToggle(equipped, 1));
+                //flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[1];
                 t = 1;
                 break;
             case "explosive":
-                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[2];
-                eFire = true;
+                StartCoroutine(animToggle(equipped, 2));
+                //flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[2];
+                //eFire = true;
                 t = 2;
                 break;
         }
-        flashLeft.SetActive(true);
+        //flashLeft.SetActive(true);
 
         gameObject.GetComponent<PlayerController>().Enemy.GetComponent<EnemyHealth>().newAtk(t);
 
+    }
+
+    IEnumerator animToggle(int e, int t)
+    {
+        yield return new WaitForSeconds(audioStart[e]);
+        switch(t)
+        {
+            case 0:
+                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
+                flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
+                flashRight.SetActive(true);
+                break;
+            case 1:
+                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[1];
+                break;
+            case 2:
+                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[2];
+                eFire = true;
+                break;
+        }
+        flashLeft.SetActive(true);
+        float s = audioEnd[e] - audioStart[e];
+        yield return new WaitForSeconds(s);
+
+        flashLeft.SetActive(false);
+        flashRight.SetActive(false);
+
+        yield return null;
     }
 
     void coolWeapon()
@@ -409,8 +444,8 @@ public class PlayerProjectile : MonoBehaviour
         isCooling[equipped] = true;
         coolTime[equipped] = cooldown;
         firing = false;
-        flashLeft.SetActive(false);
-        flashRight.SetActive(false);
+        //flashLeft.SetActive(false);
+        //flashRight.SetActive(false);
         gameObject.GetComponent<PlayerController>().setFiring(false);
     }
 
