@@ -40,6 +40,8 @@ public class PlayerProjectile : MonoBehaviour
     //audio times for anim syncup
     public float[] audioStart;
     public float[] audioEnd;
+    //animation speeds
+    float animSpeed;
 
     public string level; //LEVEL SETTER
 
@@ -122,6 +124,8 @@ public class PlayerProjectile : MonoBehaviour
         
         maxCoolTime = new int[m_Weapons.Count];
         maxReloadTime = new int[m_Weapons.Count];
+
+        animSpeed = 0.0f;
 
         panelButtonsCurrent = new GameObject[17];
         Globals.setKeySetting(0);
@@ -413,22 +417,38 @@ public class PlayerProjectile : MonoBehaviour
 
     IEnumerator animToggle(int e, int t)
     {
+
+        Animator anim = flashLeft.GetComponent<Animator>();
+        Animator anim2 = flashRight.GetComponent<Animator>();
         yield return new WaitForSeconds(audioStart[e]);
         switch(t)
         {
             case 0:
-                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[0];
-                flashRight.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
+                anim.runtimeAnimatorController = animMain[0];
+                anim2.GetComponent<Animator>().runtimeAnimatorController = animBulletR;
                 flashRight.SetActive(true);
                 break;
             case 1:
-                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[1];
+                anim.runtimeAnimatorController = animMain[1];
                 break;
             case 2:
-                flashLeft.GetComponent<Animator>().runtimeAnimatorController = animMain[2];
+                anim.runtimeAnimatorController = animMain[2];
                 eFire = true;
                 break;
         }
+
+        
+        anim.speed = 1;
+        anim2.speed = 1;
+        switch (e)
+        {
+            case 7:
+                anim.speed = anim2.speed = 3;
+                break;
+            default:
+                break;
+        }
+
         flashLeft.SetActive(true);
         float s = audioEnd[e] - audioStart[e];
         yield return new WaitForSeconds(s);
@@ -524,6 +544,8 @@ public class PlayerProjectile : MonoBehaviour
                 panelButtonsCurrent[equipped].GetComponent<Image>().sprite = buttonTypes[10];
                 break;
         }
+        animSpeed = float.Parse(stats[11]);
+
         //get stats of equipped weapon (AP, heat, etc)
 
         inRange.transform.localScale = new Vector3(maxRange*0.4f,maxRange*0.4f,1.0f);
