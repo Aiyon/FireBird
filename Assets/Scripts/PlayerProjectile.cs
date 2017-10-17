@@ -82,6 +82,7 @@ public class PlayerProjectile : MonoBehaviour
     bool ported = false;
 
     int equipped; //which weapon is equipped
+    bool atkDuration; //used to manually enable/disable damage to allow syncing to animation/audio
 
     List<string> m_Weapons;
 
@@ -195,10 +196,15 @@ public class PlayerProjectile : MonoBehaviour
             }
             else
             {
-                //fire for (AP/duration)*time.delta time, for duration.
-                damageCounter += (AP / duration) * Time.deltaTime;
+                if (atkDuration)
+                {
+                    float atkDur = audioEnd[equipped] - audioStart[equipped];
+                    //fire for (AP/duration)*time.delta time, for duration.
+                    damageCounter += (AP / atkDur) * Time.deltaTime;
+                    heatSlider.value += heat * Time.deltaTime;
+                }
+            
                 fireTime -= Time.deltaTime;
-                heatSlider.value += heat * Time.deltaTime;
 
                 if ((damageCounter - damageCounter % 1) > 0)
                 {
@@ -421,7 +427,8 @@ public class PlayerProjectile : MonoBehaviour
         Animator anim = flashLeft.GetComponent<Animator>();
         Animator anim2 = flashRight.GetComponent<Animator>();
         yield return new WaitForSeconds(audioStart[e]);
-        switch(t)
+        atkDuration = true;
+        switch (t)
         {
             case 0:
                 anim.runtimeAnimatorController = animMain[0];
@@ -452,10 +459,20 @@ public class PlayerProjectile : MonoBehaviour
         flashLeft.SetActive(true);
         float s = audioEnd[e] - audioStart[e];
         yield return new WaitForSeconds(s);
+        atkDuration = false;
 
         flashLeft.SetActive(false);
         flashRight.SetActive(false);
 
+        yield return null;
+    }
+
+    IEnumerator damageToggle(float start, float end)
+    {
+        yield return new WaitForSeconds(start);
+        atkDuration = true;
+        yield return new WaitForSeconds(end-start);
+        atkDuration = false;
         yield return null;
     }
 
