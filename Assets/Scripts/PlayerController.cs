@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour {
 
         //healthSlider.value = currentHealth * healthSlider.maxValue / maxHealth;
 
-        healthText.text = currentHealth + " AP ";
+        healthText.text = currentHealth + "";
         //---
 
         adjSpeed = rotSpeed / pRadius.z; //adjusted for player distance

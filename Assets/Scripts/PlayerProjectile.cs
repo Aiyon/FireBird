@@ -201,7 +201,7 @@ public class PlayerProjectile : MonoBehaviour
                     float atkDur = audioEnd[equipped] - audioStart[equipped];
                     //fire for (AP/duration)*time.delta time, for duration.
                     damageCounter += (AP / atkDur) * Time.deltaTime;
-                    heatSlider.value += heat * Time.deltaTime;
+                    heatSlider.value += heat * Time.deltaTime * (duration/atkDur);
                 }
             
                 fireTime -= Time.deltaTime;

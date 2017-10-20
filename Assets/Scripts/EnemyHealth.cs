@@ -43,11 +43,11 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         AP = 10000;
-        maxAA = 100;
+        maxAA = 5000;
         def[0] = maxAA;
-        maxES = 100;
+        maxES = 5000;
         def[1] = maxES;
-        maxAF = 100;
+        maxAF = 5000;
         def[2] = maxAF;
         activeDef = 0;
         numDefs = 3;
