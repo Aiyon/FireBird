@@ -1,0 +1,1021 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 980 Ti (ID=0x17c8)
+    Vendor:   NVIDIA
+    VRAM:     6048 MB
+    Driver:   10.18.10.3308
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.016 seconds
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Barney\Documents\ShunityWaddyWaddy\FireBird\Builds\0.6\0.6.8\FireBird_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1200 59Hz; virtual: 3840x1200 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.793232 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 207c -> priority: 1 
+  Thread -> id: 251c -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.992848 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1648.
+Total: 0.681798 ms (FindLiveObjects: 0.096771 ms CreateObjectMapping: 0.029031 ms MarkObjects: 0.499692 ms  DeleteObjects: 0.055423 ms)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index
+  at System.Collections.Generic.List`1[System.Single].get_Item (Int32 index) [0x00000] in <filename unknown>:0 
+  at PlayerController.getTrackingMomentum (Single pSpeed) [0x00000] in <filename unknown>:0 
+  at EnemyAttack.setPatternRot () [0x00000] in <filename unknown>:0 
+  at EnemyAttack.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+no range
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+no range
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+boom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.05
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+

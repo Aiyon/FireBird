@@ -23,7 +23,7 @@ public class PlayerProjectile : MonoBehaviour
     public int reload;
     public int duration;    //how long it fires for, essentially shots per clip.
     float fireTime;
-    public string type; //weapon type
+    public string type = "Explosive"; //weapon type
     string wName;
     int soundEffect;
     bool eFire; //so explosive only hits once.
@@ -154,6 +154,7 @@ public class PlayerProjectile : MonoBehaviour
         portalCool = new bool[isCooling.Length];
         portalCoolTime = new int[coolTime.Length];
 
+        equip(0);
         equip(5);
     }
 
