@@ -10,4 +10,9 @@ public class LevelSelect : MonoBehaviour
         Globals.setLevel("/L" + i);
         SceneManager.LoadScene(i);
     }
+
+    public void qq()
+    {
+        Application.Quit();
+    }
 }

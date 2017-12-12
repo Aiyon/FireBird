@@ -219,4 +219,9 @@ public class EnemyHealth : MonoBehaviour
     {
         typeCount[type]++;
     }
+
+    public int getHealth()
+    {
+        return AP;
+    }
 }

@@ -13,10 +13,10 @@ public class TerrainMaker : MonoBehaviour {
     {
         spawnPos.y = 0.08f;
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 150; i++)
         {
-            spawnPos.x = Random.Range(-20.0f, 20.0f);
-            spawnPos.z = Random.Range(-20.0f, 20.0f);
+            spawnPos.x = Random.Range(-55.0f, 55.0f);
+            spawnPos.z = Random.Range(-55.0f, 55.0f);
             GameObject g = (GameObject)Instantiate(detailSprite, spawnPos, Quaternion.identity);
             g.GetComponent<DetailSpriteController>().setPlayer(player);
 

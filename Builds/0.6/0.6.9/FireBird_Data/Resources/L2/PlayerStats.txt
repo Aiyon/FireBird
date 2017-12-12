@@ -1,0 +1,13 @@
+MOVE SPEED //accel = fraction of max. (F,F,I,F) Radial = degrees per second. 600, because smallest radius is 5.
+Forward 6.0
+FAccel 0.033
+Radial 600
+RAccel 0.05
+
+CONSTRAINTS (I,I)
+MinRange 5
+MaxRange 30
+Start 10
+
+HEALTH (I)
+Max 15000

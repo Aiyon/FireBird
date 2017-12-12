@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e7c1a29a938a54d4192be9cf91c9e714
+timeCreated: 1511361912
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Health
+  fontNames:
+  - Health
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

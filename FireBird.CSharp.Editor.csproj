@@ -55,9 +55,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -100,9 +97,6 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.VR">
       <HintPath>Library\UnityAssemblies\UnityEditor.VR.dll</HintPath>
     </Reference>
@@ -126,9 +120,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Splines\Editor\BezierCurveInspector.cs" />
-    <Compile Include="Assets\Splines\Editor\BezierSplineInspector.cs" />
-    <Compile Include="Assets\Splines\Editor\LineInspector.cs" />
+    <Compile Include="Assets\Sprites\Splines\Editor\BezierCurveInspector.cs" />
+    <Compile Include="Assets\Sprites\Splines\Editor\BezierSplineInspector.cs" />
+    <Compile Include="Assets\Sprites\Splines\Editor\LineInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\L1\PWeapons.txt" />
@@ -148,7 +142,7 @@
     <None Include="Assets\Resources\L2\PlayerStats.txt" />
     <None Include="Assets\Resources\L2\Projectiles.txt" />
     <None Include="Assets\Resources\L2\sort.txt" />
-    <None Include="Assets\sky5X\README.txt" />
+    <None Include="Assets\Sprites\sky5X\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

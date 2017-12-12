@@ -70,10 +70,20 @@ public class PlayerController : MonoBehaviour {
     bool playerHit;
     float pHAngle;
     float pHDist;
+    
 
-    public Button menuButton;
-    public GameObject keyboardSetButton;
+    int oldrangeSet;
+    int newrangeSet;
 
+    public GameObject[] shortRings;
+    public GameObject[] medRings;
+    public GameObject[] longRings;
+    public GameObject[] xlRings;
+
+    //Endgame UI screens
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    
     // Use this for initialization
     void Start()
     {
@@ -89,14 +99,34 @@ public class PlayerController : MonoBehaviour {
         pMomentum = new List<float>();
         playerHit = false;
 
+        oldrangeSet = 5;
+        newrangeSet = 3; 
+
         Globals.paused = false;
+        Globals.gameState = 0;
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        menuButton.gameObject.SetActive(Globals.paused);
-        keyboardSetButton.gameObject.SetActive(Globals.paused);
+        if (Globals.gameState != 0) return;
+        else
+        {
+            if (Enemy.GetComponent<EnemyHealth>().getHealth() <= 0)
+            {
+                Globals.gameState = 1;
+                winScreen.SetActive(true);
+                gameObject.GetComponent<PlayerProjectile>().setGameState(1);
+            }
+            if (currentHealth <= 0)
+            {
+                Globals.gameState = 2;
+                loseScreen.SetActive(true);
+                gameObject.GetComponent<PlayerProjectile>().setGameState(2);
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -107,7 +137,51 @@ public class PlayerController : MonoBehaviour {
                 g.transform.GetChild(0).gameObject.SetActive(!Globals.paused);
             }
         }
-        if (Globals.paused) return;
+        if (Globals.paused)
+            return;
+
+
+        float r = gameObject.transform.localPosition.z * -1;
+        if (r <= 15) newrangeSet = 0;
+        else if (r <= 30) newrangeSet = 1;
+        else if (r <= 45) newrangeSet = 2;
+        else newrangeSet = 3;
+
+        if(newrangeSet != oldrangeSet)
+        {
+            bool g0 = false;
+            bool g1 = false;
+            bool g2 = false;
+            bool g3 = false;
+
+            switch (newrangeSet)
+            {
+                case 0:
+                    g0 = true;
+                    break;
+                case 1:
+                    g1 = true;
+                    break;
+                case 2:
+                    g2 = true;
+                    break;
+                case 3:
+                    g3 = true;
+                    break;
+            }
+
+            foreach (GameObject g in shortRings)
+            { g.SetActive(g0); }
+            foreach (GameObject g in medRings)
+            { g.SetActive(g1); }
+            foreach (GameObject g in longRings)
+            { g.SetActive(g2); }
+            foreach (GameObject g in xlRings)
+            { g.SetActive(g3); }
+
+
+            oldrangeSet = newrangeSet;
+        }
 
         if (playerHit)
         {
@@ -356,7 +430,6 @@ public class PlayerController : MonoBehaviour {
             if (playerHit && shake > 0)
                 tshake += shakeAmt;
 
-            Debug.Log(tshake);
             Vector3 cTemp = UnityEngine.Random.insideUnitSphere * tshake;
 
             if (firing && !playerHit)

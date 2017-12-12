@@ -1,0 +1,11 @@
+for (int i = 0; i < list.count; i++)
+{
+    if <current value> < list[i]
+    {
+	j.add(0);
+	for(int j = list.count-1; j > i; j--)
+	{
+
+	}
+    }
+}

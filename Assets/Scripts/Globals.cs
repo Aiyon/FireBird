@@ -29,4 +29,6 @@ public static class Globals
     
     public static int getKeySetting()
     { return keySetting; }
+
+    public static int gameState; //0 = play, 1 = win, 2 = lose.
 }

@@ -109,6 +109,9 @@ public class PlayerProjectile : MonoBehaviour
     List<int> sortedMinRange = new List<int>(); //List index rather than value.
     List<int> sortedMaxRange = new List<int>(); //List index rather than value.
 
+    //endgame Texts
+    public Text[] ammoTexts;
+
     // Use this for initialization
     void Start()
     {
@@ -177,8 +180,8 @@ public class PlayerProjectile : MonoBehaviour
                     break;
             }
         }
-
-
+        
+        if (Globals.gameState != 0) return;
         if (Globals.paused) return;
 
         if (firing)
@@ -958,6 +961,18 @@ public class PlayerProjectile : MonoBehaviour
 
             default:
                 return false;
+        }
+    }
+
+    public void setGameState(int state)
+    {
+        for(int i = 0; i < m_Weapons.Count; i++)
+        {
+            string[] stats = m_Weapons[i].Split(',');
+            int currentAmmo = (int.Parse(stats[8]) * (capacities[i]-1)) + ammo[i];
+            if (currentAmmo < 0) currentAmmo = 0;
+            int maxAmmo = int.Parse(stats[8]) * int.Parse(stats[9]);
+            ammoTexts[i].text = currentAmmo + "/" + maxAmmo;
         }
     }
 }

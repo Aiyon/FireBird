@@ -26,6 +26,7 @@ public class ProjectileMotion : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (Globals.gameState != 0) return;
         if (Globals.paused) return;
 
         transform.position -= transform.forward * speed * Time.deltaTime;
@@ -70,13 +71,17 @@ public class ProjectileMotion : MonoBehaviour {
                 alter = 2;
             }
         }
-        if (type.ToLower() == "breakable" && Mathf.Abs(sprite.transform.localEulerAngles.y) < 20 && player.GetComponentInChildren<PlayerController>().getFiring())
+        if (type.ToLower() == "breakable" && Mathf.Abs(sprite.transform.localEulerAngles.y) < 40 && player.GetComponentInChildren<PlayerController>().getFiring())
         {
-            //Vector3 pTemp = player.transform.GetChild(0).position.normalized;
-            //Vector3 projAngle = gameObject.transform.position.normalized;
+            Vector3 pTemp = player.transform.GetChild(0).position.normalized;
+            Vector3 projAngle = gameObject.transform.position.normalized;
+
+            if(pTemp == projAngle)
+            Destroy(gameObject, 0.1f);
 
             float t = -90 / (Mathf.PI * player.transform.GetChild(0).position.z);
-            if (Mathf.Abs(sprite.transform.localEulerAngles.y) <= t)
+            //get angle from the player radius + width of player. 
+            if (Mathf.Abs(sprite.transform.localEulerAngles.y) <= 4)
             {
                 Debug.Log("boom");
                 gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(0, 0, 0);
