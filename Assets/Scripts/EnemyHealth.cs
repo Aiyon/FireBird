@@ -38,6 +38,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject splosion;
     bool sploding;
     bool flashing;
+    bool matching;
 
     // Use this for initialization
     void Start()
@@ -55,6 +56,7 @@ public class EnemyHealth : MonoBehaviour
         tCount = 0;
         sploding = false;
         flashing = false;
+        matching = false;
         
         typeCount = new int[3] { 0, 0, 0 };
     }
@@ -68,7 +70,7 @@ public class EnemyHealth : MonoBehaviour
         sliderES.value = def[1];
         sliderAF.value = def[2];
         int APSum = def[0] + def[1] + def[2] + AP;
-        textAP.text = APSum + "AP";
+        textAP.text = APSum + ""; // + "AP";
         textAA.text = def[0] + "/" + maxAA;
         textES.text = def[1] + "/" + maxES;
         textAF.text = def[2] + "/" + maxAF;
@@ -76,13 +78,13 @@ public class EnemyHealth : MonoBehaviour
         switch (activeDef)
         {
             case 0:
-                textAA.text += "\nACTIVE";
+                //textAA.text += "\nACTIVE";
                 break;
             case 1:
-                textES.text += "\nACTIVE";
+                //textES.text += "\nACTIVE";
                 break;
             case 2:
-                textAF.text += "\nACTIVE";
+                //textAF.text += "\nACTIVE";
                 break;
             default:
                 break;
@@ -114,7 +116,12 @@ public class EnemyHealth : MonoBehaviour
                 t = 2;
                 break;
         }
-        if (activeDef == t) damage /= 2;
+        matching = false;
+        if (activeDef == t)
+        {
+            damage /= 10;
+            matching = true;
+        }
 
         switch (activeDef)
         {
