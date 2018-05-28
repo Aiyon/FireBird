@@ -83,7 +83,7 @@ public class ProjectileMotion : MonoBehaviour {
             //get angle from the player radius + width of player. 
             if (Mathf.Abs(sprite.transform.localEulerAngles.y) <= 4)
             {
-                Debug.Log("boom");
+                //Debug.Log("boom");
                 gameObject.GetComponentInChildren<SpriteRenderer>().color = new Color(0, 0, 0);
                 gameObject.GetComponent<ProjectileMotion>().setShit(0, 0);
                 StartCoroutine(whiteFlash());

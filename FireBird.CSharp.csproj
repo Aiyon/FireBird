@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\ProjectileMotion.cs" />
     <Compile Include="Assets\Scripts\TerrainMaker.cs" />
+    <Compile Include="Assets\Scripts\UIAnimator.cs" />
     <Compile Include="Assets\Scripts\VolumeMixer.cs" />
     <Compile Include="Assets\Scripts\inputchecker.cs" />
     <Compile Include="Assets\Scripts\lazyRotate.cs" />

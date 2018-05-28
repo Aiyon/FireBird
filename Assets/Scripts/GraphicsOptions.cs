@@ -5,6 +5,8 @@ using UnityEngine;
 public class GraphicsOptions : MonoBehaviour
 {
     bool fullscreen;
+    int resx;
+    int resy;
 
     public void start()
     {
@@ -17,22 +19,28 @@ public class GraphicsOptions : MonoBehaviour
         switch(v)
         {
             case 0:
-                Screen.SetResolution(1920, 1280, fullscreen);
+                resx = 1920;
+                resy = 1280;
                 break;
             case 1:
-                Screen.SetResolution(1280, 720, fullscreen);
+                resx = 1280;
+                resy = 720;
                 break;
             case 2:
-                Screen.SetResolution(720, 526, fullscreen);
+                resx = 720;
+                resy = 526;
                 break;
             case 3:
-                Screen.SetResolution(640, 480, fullscreen);
+                resx = 640;
+                resy = 480;
                 break;
         }
+        Screen.SetResolution(resx, resy, fullscreen);
     }
 
     public void setFullscreen(bool f)
     {
         fullscreen = f;
+        Screen.SetResolution(resx, resy, fullscreen);
     }
 }

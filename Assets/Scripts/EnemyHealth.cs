@@ -26,6 +26,8 @@ public class EnemyHealth : MonoBehaviour
 
     int activeDef; //0 = Armour, 1 = Shield, 2 = Flare
 
+    public GameObject[] glowAnims;
+
     public Text textAP;
     public Slider sliderAA;
     public Text textAA;
@@ -33,6 +35,8 @@ public class EnemyHealth : MonoBehaviour
     public Text textES;
     public Slider sliderAF;
     public Text textAF;
+
+    float timePassed;
 
     //public RuntimeAnimatorController rac;
     public GameObject splosion;
@@ -57,7 +61,17 @@ public class EnemyHealth : MonoBehaviour
         sploding = false;
         flashing = false;
         matching = false;
-        
+        timePassed = 0; 
+
+        //UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(0);
+
+        foreach(GameObject anim in glowAnims)
+        {
+            Debug.Log("blarg");
+            anim.SetActive(false);
+        }
+        glowAnims[0].SetActive(true);
+
         typeCount = new int[3] { 0, 0, 0 };
     }
 
@@ -65,6 +79,7 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
         if (Globals.paused) return;
+        timePassed += Time.deltaTime;
 
         sliderAA.value = def[0];
         sliderES.value = def[1];
@@ -100,6 +115,24 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void tCountIncrement(string type)
+    {
+        switch (type)
+        {
+            case "Ballistic":
+                typeCount[0]++;
+                break;
+            case "Energy":
+                typeCount[1]++;
+                break;
+            case "Explosive":
+                typeCount[2]++;
+                break;
+        }
+
+        Debug.Log(typeCount[1]);
+    }
+
     public void playerProjHit(int damage, string type)
     {
 
@@ -119,6 +152,8 @@ public class EnemyHealth : MonoBehaviour
         matching = false;
         if (activeDef == t)
         {
+            
+            if (damage % 10 >= 5) damage += 5;
             damage /= 10;
             matching = true;
         }
@@ -199,27 +234,77 @@ public class EnemyHealth : MonoBehaviour
     {
         if (numDefs <= 0)
         {
+            foreach (GameObject g in glowAnims)
+            {
+                g.SetActive(false);
+            }
             tCount = -40;
             activeDef = 3;
             return;
         }
-            //Debug.Log("change defense mode");
 
-        int atkSum = typeCount[0] + typeCount[1] + typeCount[2];
-        if (atkSum >= 5 || def[activeDef] <= 0)
+        if(timePassed > 20)
         {
+            timePassed = 0;
             int test = 0;
-
             do
             {
+                foreach (GameObject g in glowAnims)
+                {
+                    g.SetActive(false);
+                }
                 activeDef++;
                 test++;
                 if (activeDef >= 3) activeDef = 0;
-            } while (def[activeDef] <= 0 && test < 10);
-
-            typeCount[0] = typeCount[1] = typeCount[2] = 0;
-            tCount = 0;
+                glowAnims[activeDef].SetActive(true);
+            }
+            while (def[activeDef] <= 0 && test < 10);
         }
+        //Debug.Log("change defense mode");
+
+        //int atkSum = typeCount[0] + typeCount[1] + typeCount[2];
+        //Debug.Log(atkSum);
+        //foreach (int i in typeCount)
+        //{
+        //    if (i >= 3) atkSum = 6;
+        //}
+
+        //if (atkSum >= 6 || def[activeDef] <= 0)
+        //{
+        //    //int test = 0;
+
+        //    if (typeCount[0] > typeCount[1] && def[0] > 0)
+        //    {
+        //        if (typeCount[0] > typeCount[2])
+        //            activeDef = 0;
+        //        else if (typeCount[2] > 0 && def[2] > 0)
+        //            activeDef = 2;
+        //        else
+        //            activeDef = 1;
+        //    }
+        //    else if (typeCount[1] > typeCount[2] && def[1] > 0)
+        //        activeDef = 1;
+        //    else if (def[2] > 0)
+        //        activeDef = 2;
+        //    else
+        //        activeDef = 0;
+
+        //do
+        //{
+        //    activeDef++;
+        //    test++;
+        //    if (activeDef >= 3) activeDef = 0;
+        //} while (def[activeDef] <= 0 && test < 10);
+
+        //    foreach(GameObject anim in glowAnims)
+        //    {
+        //        anim.SetActive(false);
+        //    }
+        //    glowAnims[activeDef].SetActive(true);
+
+        //    typeCount[0] = typeCount[1] = typeCount[2] = 0;
+        //    tCount = 0;
+        //}
     }
 
     public void newAtk(int type)

@@ -158,7 +158,7 @@ public class PlayerProjectile : MonoBehaviour
         portalCoolTime = new int[coolTime.Length];
 
         equip(0);
-        equip(5);
+        equip(8);
     }
 
     // Update is called once per frame
@@ -421,6 +421,9 @@ public class PlayerProjectile : MonoBehaviour
         }
         //flashLeft.SetActive(true);
 
+        //
+        //gameObject.GetComponent<PlayerController>().Enemy.GetComponent<EnemyHealth>().tCountIncrement(type);
+
         gameObject.GetComponent<PlayerController>().Enemy.GetComponent<EnemyHealth>().newAtk(t);
 
     }
@@ -509,6 +512,16 @@ public class PlayerProjectile : MonoBehaviour
 
     public void equip(int weapon)
     {
+        switch(weapon)
+        {
+            case 0:
+            case 1:
+            case 3:
+            case 5:
+            case 10:
+                return;
+        }
+
         switch(type.ToLower())
         {
             case "explosive":
@@ -771,6 +784,8 @@ public class PlayerProjectile : MonoBehaviour
             if (j == i) keyboardSets[j].SetActive(true);
             else keyboardSets[j].SetActive(false);
         }
+
+
         switch(i)
         {
             case 0:

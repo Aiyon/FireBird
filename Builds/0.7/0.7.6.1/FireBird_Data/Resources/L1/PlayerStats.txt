@@ -1,0 +1,13 @@
+MOVE SPEED //accel = fraction of max. (F,F,I,F)
+Forward 2.5
+FAccel 0.066
+Radial 250
+RAccel 0.10
+
+CONSTRAINTS (I,I)
+MinRange 5
+MaxRange 60
+Start 60
+
+HEALTH (I)
+Max 15000

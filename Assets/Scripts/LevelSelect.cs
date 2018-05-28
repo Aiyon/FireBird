@@ -36,8 +36,15 @@ public class LevelSelect : MonoBehaviour
 
     public void levelSelect(int i)
     {
-        StartCoroutine(levelWindup(i));
-        loading = true;
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            SceneManager.LoadScene(i);
+        }
+        else
+        {
+            StartCoroutine(levelWindup(i));
+            loading = true;
+        }
     }
 
     public void qq()
@@ -47,7 +54,7 @@ public class LevelSelect : MonoBehaviour
 
     public IEnumerator levelWindup(int i)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.75f);
         Globals.setLevel("/L" + i);
         loading = false;
         SceneManager.LoadScene(i);

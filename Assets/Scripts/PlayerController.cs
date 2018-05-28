@@ -452,24 +452,24 @@ public class PlayerController : MonoBehaviour {
     bool DashChecker(KeyCode k, int i)
     {
 
-        if (Input.GetKeyDown(k))
-        {
-            if (!DashCheck[i])
-            {
-                DashCheck[i] = true;
-                dashTimer = 0.25f;
-                return false;
-            }
-            else if (dashTimer > 0)
-            {
-                DashCheck[i] = false;
-                dashing = true;
-                dashDuration = 1.0f;
-                return true;
-            }
-            else
-                DashCheck[i] = false;
-        }
+        //if (Input.GetKeyDown(k))
+        //{
+        //    if (!DashCheck[i])
+        //    {
+        //        DashCheck[i] = true;
+        //        dashTimer = 0.25f;
+        //        return false;
+        //    }
+        //    else if (dashTimer > 0)
+        //    {
+        //        DashCheck[i] = false;
+        //        dashing = true;
+        //        dashDuration = 1.0f;
+        //        return true;
+        //    }
+        //    else
+        //        DashCheck[i] = false;
+        //}
         return false;
     }
 
