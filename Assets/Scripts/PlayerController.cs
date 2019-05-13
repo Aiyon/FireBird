@@ -424,12 +424,17 @@ public class PlayerController : MonoBehaviour {
         if (shake > 0 || fShake > 0)
         {
             float tshake = 0;
+            
 
             if (firing && fShake > 0)
                 tshake += fireShake;
             if (playerHit && shake > 0)
-                tshake += shakeAmt;
-
+                tshake += shake;
+            else
+            {
+                playerHit = false;
+                Time.timeScale = 1;
+            }
             Vector3 cTemp = UnityEngine.Random.insideUnitSphere * tshake;
 
             if (firing && !playerHit)

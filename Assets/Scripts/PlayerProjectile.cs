@@ -186,6 +186,7 @@ public class PlayerProjectile : MonoBehaviour
 
         if (firing)
         {
+            gameObject.GetComponent<PlayerController>().setFiring(true);
             if (type.ToLower() == "explosive")   //ballistic, energy
             {
                 //fire once for full AP
@@ -232,6 +233,10 @@ public class PlayerProjectile : MonoBehaviour
                     coolWeapon();
                 }
             }
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerController>().setFiring(false);
         }
 
         //Heat slider colour update.
@@ -301,58 +306,58 @@ public class PlayerProjectile : MonoBehaviour
         if (portalExit)
             portalOut.transform.LookAt(Camera.main.transform.position, -Vector3.up);
 
-        if(ported)
-        {
-            portalCD -= Time.deltaTime;
-            if(portalCD <= 0)
-            {
-                portalIn.GetComponent<SpriteRenderer>().enabled = true;
-                portalOut.GetComponent<SpriteRenderer>().enabled = true;
-                ported = false;
-            }
-        }
-        else if (portalEntry && portalExit)
-        {
-            Vector3 portalDist = gameObject.transform.position - portalIn.transform.position;
-            if(portalDist.magnitude <= 2)
-            {
-                gameObject.transform.position = portalOut.transform.position;
-                Array.Copy(portalCool, isCooling, portalCool.Length);
-                Array.Copy(portalCoolTime, coolTime, portalCoolTime.Length);
-                heatSlider.value = portalHeat;
-                portalCD = 120;
-                ported = true;
-                portalIn.GetComponent<SpriteRenderer>().enabled = false;
-                portalOut.GetComponent<SpriteRenderer>().enabled = false;
-            }
-        }
-        else
-        {
-            if (!portalEntry && placePortalEntrance())
-            {
-                //place portal entry at player.
-                if(portalExit)
-                {
-                    //check distance, if <5, dont place
-                }
-                portalIn.transform.position = gameObject.transform.position;
-                portalIn.GetComponent<SpriteRenderer>().enabled = true;
-                panelButtonsCurrent[12].GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f, 0.3f);
-                portalEntry = true;
-            }
-            if (!portalExit && placePortalExit())
-            {
-                //place portal exit at player
-                portalOut.transform.position = gameObject.transform.position;
-                portalOut.GetComponent<SpriteRenderer>().enabled = true;
-                Array.Copy(isCooling, portalCool, isCooling.Length);
-                Array.Copy(coolTime, portalCoolTime, coolTime.Length);
-                portalHeat = heatSlider.value;
-                Debug.Log("PH: " + portalHeat);
-                panelButtonsCurrent[16].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
-                portalExit = true;
-            }
-        }
+        //if(ported)
+        //{
+        //    portalCD -= Time.deltaTime;
+        //    if(portalCD <= 0)
+        //    {
+        //        portalIn.GetComponent<SpriteRenderer>().enabled = true;
+        //        portalOut.GetComponent<SpriteRenderer>().enabled = true;
+        //        ported = false;
+        //    }
+        //}
+        //else if (portalEntry && portalExit)
+        //{
+        //    Vector3 portalDist = gameObject.transform.position - portalIn.transform.position;
+        //    if(portalDist.magnitude <= 2)
+        //    {
+        //        gameObject.transform.position = portalOut.transform.position;
+        //        Array.Copy(portalCool, isCooling, portalCool.Length);
+        //        Array.Copy(portalCoolTime, coolTime, portalCoolTime.Length);
+        //        heatSlider.value = portalHeat;
+        //        portalCD = 120;
+        //        ported = true;
+        //        portalIn.GetComponent<SpriteRenderer>().enabled = false;
+        //        portalOut.GetComponent<SpriteRenderer>().enabled = false;
+        //    }
+        //}
+        //else
+        //{
+        //    if (!portalEntry && placePortalEntrance())
+        //    {
+        //        //place portal entry at player.
+        //        if(portalExit)
+        //        {
+        //            //check distance, if <5, dont place
+        //        }
+        //        portalIn.transform.position = gameObject.transform.position;
+        //        portalIn.GetComponent<SpriteRenderer>().enabled = true;
+        //        panelButtonsCurrent[12].GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f, 0.3f);
+        //        portalEntry = true;
+        //    }
+        //    if (!portalExit && placePortalExit())
+        //    {
+        //        //place portal exit at player
+        //        portalOut.transform.position = gameObject.transform.position;
+        //        portalOut.GetComponent<SpriteRenderer>().enabled = true;
+        //        Array.Copy(isCooling, portalCool, isCooling.Length);
+        //        Array.Copy(coolTime, portalCoolTime, coolTime.Length);
+        //        portalHeat = heatSlider.value;
+        //        Debug.Log("PH: " + portalHeat);
+        //        panelButtonsCurrent[16].GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+        //        portalExit = true;
+        //    }
+        //}
     }
 
     public void fire()
